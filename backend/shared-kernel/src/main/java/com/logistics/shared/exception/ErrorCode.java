@@ -1,0 +1,13 @@
+package com.logistics.shared.exception;
+
+public enum ErrorCode {
+    VALIDATION_ERROR,
+    NOT_FOUND,
+    CONFLICT,
+    AUTHENTICATION_FAILED,
+    AUTHORIZATION_FAILED,
+    INFRASTRUCTURE_ERROR,
+    RATE_LIMIT_EXCEEDED,
+    EXTERNAL_SERVICE_ERROR,
+    INTERNAL_ERROR
+}
