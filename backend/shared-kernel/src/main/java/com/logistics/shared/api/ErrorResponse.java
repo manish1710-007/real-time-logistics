@@ -6,9 +6,6 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import lombok.Builder;
-
-@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ErrorResponse (
     boolean success,
@@ -16,7 +13,6 @@ public record ErrorResponse (
     String traceId,
     Instant timestamp
 ) {
-    @Builder 
     public record ErrorDetail(
         String code,
         String message,
