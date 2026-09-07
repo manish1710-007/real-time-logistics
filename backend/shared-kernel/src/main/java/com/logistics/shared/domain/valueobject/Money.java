@@ -3,7 +3,7 @@ package com.logistics.shared.domain.valueobject;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Currency;
-import java.util.Objects; 
+import java.util.Objects;
 
 
 public record Money(BigDecimal amount, Currency currency) {
@@ -20,29 +20,29 @@ public record Money(BigDecimal amount, Currency currency) {
         return new Money(amount, Currency.getInstance("USD"));
     }
 
-    public static Money Zero(Currency currency) {
+    public static Money zero(Currency currency) {
         return new Money(BigDecimal.ZERO, currency);
     }
 
     public Money add(Money other) {
         requireSameCurrency(other);
-        return new MOney(this.amount.add(other.amount), this.currency);
+        return new Money(this.amount.add(other.amount), this.currency);
     }
 
-    public Money subtract(Money other){
+    public Money subtract(Money other) {
         requireSameCurrency(other);
         return new Money(this.amount.subtract(other.amount), this.currency);
     }
 
-    public Money multiply(BigDecimal multiplier) {
-        return new Money(this.amount.multiply(multiplier), this.currency);
+    public Money multiply(int multiplier) {
+        return new Money(this.amount.multiply(BigDecimal.valueOf(multiplier)), this.currency);
     }
 
     private void requireSameCurrency(Money other) {
         if (!this.currency.equals(other.currency)) {
             throw new IllegalArgumentException(
-                "Cannot operate on different currencies: %s vs %s".formatted(this.currency, other.currency));
-            )
+                "Cannot operate on different currencies: %s vs %s"
+                    .formatted(this.currency, other.currency));
         }
     }
 

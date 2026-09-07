@@ -93,10 +93,42 @@
                 <scope>test</scope>
             </dependency>
 
+            <!-- Logstash JSON Logging-->
+            <dependency>
+                <groupId>net.logstash.logback</groupId>
+                <artifactId>logstash-logback-encoder</artifactId>
+                <version>7.4</version>
+            </dependency>
+
             <!-- Internal modules -->
             <dependency>
                 <groupId>com.logistics</groupId>
                 <artifactId>shared-kernel</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.logistics</groupId>
+                <artifactId>module-driver</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.logistics</groupId>
+                <artifactId>module-order</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.logistics</groupId>
+                <artifactId>module-tracking</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.logistics</groupId>
+                <artifactId>module-routing</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.logistics</groupId>
+                <artifactId>module-analytics</artifactId>
                 <version>${project.version}</version>
             </dependency>
         </dependencies>

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- 1. Reference to the Parent POM -->
     <parent>
         <groupId>com.logistics</groupId>
         <artifactId>real-time-logistics-parent</artifactId>
@@ -13,37 +14,46 @@
         <relativePath>../pom.xml</relativePath>
     </parent>
 
+    <!-- 2. Module Coordinates -->
     <artifactId>shared-kernel</artifactId>
     <packaging>jar</packaging>
     <name>Shared Kernel</name>
     <description>Shared value objects, base entities, and cross-cutting concerns</description>
 
+    <!-- 3. Dependencies -->
     <dependencies>
+        <!-- Spring Boot Core (Provides Spring context, SLF4J logging, etc.) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
         </dependency>
+
+        <!-- Validation (For Jakarta annotations like @NotNull, @Min, @Max used in Value Objects) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>    
+
+        <!-- Jakarta Persistence API (For @MappedSuperclass, @Id, @Version in BaseEntity) -->
+        <!-- Note: We only need the API here, not the full spring-boot-starter-data-jpa -->
         <dependency>
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
+
+        <!-- Testing Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        
+        <!-- ArchUnit (For enforcing architecture rules, added in Step 15) -->
         <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <groupId>com.tngtech.archunit</groupId>
+            <artifactId>archunit-junit5</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
+
 </project>

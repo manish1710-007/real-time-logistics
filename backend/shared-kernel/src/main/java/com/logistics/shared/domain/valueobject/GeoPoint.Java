@@ -15,13 +15,11 @@ public record GeoPoint(
         if (longitude < -180 || longitude > 180) {
             throw new IllegalArgumentException("Longitude must be between -180 and 180 degrees.");
         }
-        Objects.requireNonNull(latitude);
-        Objects.requireNonNull(longitude);
     }
 
     public double distanceTo(GeoPoint other) {
         final int R = 6371000; // Earth radius in meters
-        double lat! = Math.toRadians(this.latitude);
+        double lat1 = Math.toRadians(this.latitude);
         double lat2 = Math.toRadians(other.latitude);
         double dLat = Math.toRadians(other.latitude - this.latitude);
         double dLon = Math.toRadians(other.longitude - this.longitude);

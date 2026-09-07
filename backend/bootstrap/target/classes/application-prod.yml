@@ -1,0 +1,23 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none        # NEVER auto-DDL in prod
+    show-sql: false
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+          time_zone: UTC
+  flyway:
+    enabled: true
+
+logging:
+  level:
+    com.logistics: INFO
+    root: WARN
+  pattern:
+    console: ""    # JSON logging handles formatting
+
+server:
+  compression:
+    enabled: true
