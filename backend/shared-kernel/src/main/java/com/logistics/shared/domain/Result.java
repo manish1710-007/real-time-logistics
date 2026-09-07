@@ -1,11 +1,10 @@
 package com.logistics.shared.domain;
 
-import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-public sealed interface result<T> permits Result.Success, Result.Failure {
+public sealed interface Result<T> permits Result.Success, Result.Failure {
     boolean isSuccess();
     boolean isFailure();
     T getValue();
@@ -13,31 +12,31 @@ public sealed interface result<T> permits Result.Success, Result.Failure {
 
     default <R> Result<R> map(Function<T, R> mapper) {
         return switch (this) {
-            case Success<T> s -> Result.success(mapper.apply(s.getValue()));
-            case Failure<T> f -> Result.failure(f.getError());
+            case Success<T> s -> Result.success(mapper.apply(s.value()));
+            case Failure<T> f -> Result.failure(f.error());
         };
     }
 
     default <R> Result<R> flatMap(Function<T, Result<R>> mapper) {
         return switch (this) {
-            case Success<T> s -> mapper.apply(s.getValue());
-            case Failure<T> f -> Result.failure(f.getError());
+            case Success<T> s -> mapper.apply(s.value());
+            case Failure<T> f -> Result.failure(f.error());
         };
     }
 
     default Result<T> onSuccess(Consumer<T> action) {
-        if (this instanceof Success<T> s) action.accept(s.value);
+        if (this instanceof Success<T> s) action.accept(s.value());
         return this;
     }
 
     default Result<T> onFailure(Consumer<String> action) {
-        if (this instanceof Failure<T> f) action.accept(f.error);
+        if (this instanceof Failure<T> f) action.accept(f.error());
         return this;
     }
 
     default T getOrElse(Supplier<T> fallback) {
         return switch (this) {
-            case Success<T> s -> s.getValue();
+            case Success<T> s -> s.value();
             case Failure<T> f -> fallback.get();
         };
     }
@@ -50,7 +49,6 @@ public sealed interface result<T> permits Result.Success, Result.Failure {
         @Override public boolean isFailure() { return false; }
         @Override public T getValue() { return value; }
         @Override public String getError() { return null; }
-
     }
 
     record Failure<T>(String error) implements Result<T> {
@@ -58,6 +56,5 @@ public sealed interface result<T> permits Result.Success, Result.Failure {
         @Override public boolean isFailure() { return true; }
         @Override public T getValue() { return null; }
         @Override public String getError() { return error; }
-
     }
 }
