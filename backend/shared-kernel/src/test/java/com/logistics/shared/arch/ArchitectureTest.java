@@ -1,5 +1,7 @@
 package com.logistics.shared.arch;
 
+import static com.tngtech.archunit.base.DescribedPredicate.alwaysTrue;
+import static com.tngtech.archunit.core.domain.JavaClass.Predicates.resideInAnyPackage;
 import com.tngtech.archunit.junit.AnalyzeClasses;
 import com.tngtech.archunit.junit.ArchTest;
 import com.tngtech.archunit.lang.ArchRule;
@@ -10,10 +12,10 @@ public class ArchitectureTest {
 
     @ArchTest
     static final ArchRule modulesShouldNotDependOnEachOther =
-            slices().matching("com.logistics.(*)..")
+            slices().matching("com.logistics.(*).")
                     .should().notDependOnEachOther()
-                    .ignoreDependency(
+                    .ignoreDependency( alwaysTrue(),
                         // Ignore the dependency if the target is the shared-kernel
-                        (origin, target) -> target.getPackageName().startsWith("com.logistics.shared")
+                        resideInAnyPackage("com.logistics.shared...")
                     );
 }

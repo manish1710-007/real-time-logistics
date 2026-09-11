@@ -1,6 +1,5 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/api/ApiResponse.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/api/ErrorResponse.java
-/home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/arch/ArchitectureTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/domain/Result.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/domain/entity/AuditInfo.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/domain/entity/BaseEntity.java
