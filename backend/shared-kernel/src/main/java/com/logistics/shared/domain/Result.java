@@ -6,8 +6,11 @@ import java.util.function.Supplier;
 
 public sealed interface Result<T> permits Result.Success, Result.Failure {
     boolean isSuccess();
+
     boolean isFailure();
+
     T getValue();
+
     String getError();
 
     default <R> Result<R> map(Function<T, R> mapper) {
@@ -41,20 +44,55 @@ public sealed interface Result<T> permits Result.Success, Result.Failure {
         };
     }
 
-    static <T> Result<T> success(T value) { return new Success<>(value); }
-    static <T> Result<T> failure(String error) { return new Failure<>(error); }
+    static <T> Result<T> success(T value) {
+        return new Success<>(value);
+    }
+
+    static <T> Result<T> failure(String error) {
+        return new Failure<>(error);
+    }
 
     record Success<T>(T value) implements Result<T> {
-        @Override public boolean isSuccess() { return true; }
-        @Override public boolean isFailure() { return false; }
-        @Override public T getValue() { return value; }
-        @Override public String getError() { return null; }
+        @Override
+        public boolean isSuccess() {
+            return true;
+        }
+
+        @Override
+        public boolean isFailure() {
+            return false;
+        }
+
+        @Override
+        public T getValue() {
+            return value;
+        }
+
+        @Override
+        public String getError() {
+            return null;
+        }
     }
 
     record Failure<T>(String error) implements Result<T> {
-        @Override public boolean isSuccess() { return false; }
-        @Override public boolean isFailure() { return true; }
-        @Override public T getValue() { return null; }
-        @Override public String getError() { return error; }
+        @Override
+        public boolean isSuccess() {
+            return false;
+        }
+
+        @Override
+        public boolean isFailure() {
+            return true;
+        }
+
+        @Override
+        public T getValue() {
+            return null;
+        }
+
+        @Override
+        public String getError() {
+            return error;
+        }
     }
 }

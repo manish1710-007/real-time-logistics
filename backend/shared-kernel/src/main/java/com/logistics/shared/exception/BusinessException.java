@@ -17,6 +17,11 @@ public abstract class BusinessException extends RuntimeException {
         this.detail = null;
     }
 
-    public String getCode() { return code; }
-    public String getDetail() { return detail; }
+    public String getCode() {
+        return code;
+    }
+
+    public String getDetail() {
+        return detail;
+    }
 }

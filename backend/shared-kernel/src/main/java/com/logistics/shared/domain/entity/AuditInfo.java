@@ -5,12 +5,7 @@ import java.time.Instant;
 import java.util.UUID;
 
 @Embeddable
-public record AuditInfo(
-    Instant createdAt,
-    UUID createdBy,
-    Instant updatedAt,
-    UUID updatedBy
-) {
+public record AuditInfo(Instant createdAt, UUID createdBy, Instant updatedAt, UUID updatedBy) {
     public static AuditInfo create(UUID actor) {
         return new AuditInfo(Instant.now(), actor, Instant.now(), actor);
     }

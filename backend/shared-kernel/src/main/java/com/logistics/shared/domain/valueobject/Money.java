@@ -5,7 +5,6 @@ import java.math.RoundingMode;
 import java.util.Currency;
 import java.util.Objects;
 
-
 public record Money(BigDecimal amount, Currency currency) {
 
     public Money {
@@ -41,8 +40,7 @@ public record Money(BigDecimal amount, Currency currency) {
     private void requireSameCurrency(Money other) {
         if (!this.currency.equals(other.currency)) {
             throw new IllegalArgumentException(
-                "Cannot operate on different currencies: %s vs %s"
-                    .formatted(this.currency, other.currency));
+                    "Cannot operate on different currencies: %s vs %s".formatted(this.currency, other.currency));
         }
     }
 

@@ -1,18 +1,11 @@
 package com.logistics.shared.api;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import java.time.Instant;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public record ApiResponse<T>(
-    boolean success,
-    T data,
-    String message,
-    Instant timestamp,
-    String traceId
-) {
-    public static <T> ApiResponse<T> success(T data){
+public record ApiResponse<T>(boolean success, T data, String message, Instant timestamp, String traceId) {
+    public static <T> ApiResponse<T> success(T data) {
         return new ApiResponse<>(true, data, null, Instant.now(), null);
     }
 
@@ -22,8 +15,5 @@ public record ApiResponse<T>(
 
     public static <T> ApiResponse<T> empty() {
         return new ApiResponse<T>(true, null, null, Instant.now(), null);
-
     }
 }
-    
-
