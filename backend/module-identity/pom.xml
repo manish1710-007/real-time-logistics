@@ -26,6 +26,13 @@
             <artifactId>shared-kernel</artifactId>
         </dependency>
 
+        <!--Junit jupiter-->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
 </project>
