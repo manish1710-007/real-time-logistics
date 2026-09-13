@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.domain.entity.TenantTest" time="0.849" tests="9" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.domain.entity.UserTest" time="21.819" tests="8" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -53,13 +53,12 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldCreateActiveTenant" classname="com.logistics.identity.domain.entity.TenantTest" time="0.189"/>
-  <testcase name="shouldRejectBlankTenantName" classname="com.logistics.identity.domain.entity.TenantTest" time="0.057"/>
-  <testcase name="shouldRejectBlankTenantSlug" classname="com.logistics.identity.domain.entity.TenantTest" time="0.023"/>
-  <testcase name="shouldChangeTenantSlug" classname="com.logistics.identity.domain.entity.TenantTest" time="0.009"/>
-  <testcase name="shouldRejectNullTenantId" classname="com.logistics.identity.domain.entity.TenantTest" time="0.473"/>
-  <testcase name="shouldActivateTenant" classname="com.logistics.identity.domain.entity.TenantTest" time="0.005"/>
-  <testcase name="shouldSuspendTenant" classname="com.logistics.identity.domain.entity.TenantTest" time="0.007"/>
-  <testcase name="shouldRenameTenant" classname="com.logistics.identity.domain.entity.TenantTest" time="0.007"/>
-  <testcase name="shouldDisableTenant" classname="com.logistics.identity.domain.entity.TenantTest" time="0.006"/>
+  <testcase name="shouldRejectBlankEmail" classname="com.logistics.identity.domain.entity.UserTest" time="10.043"/>
+  <testcase name="shouldChangeEmail" classname="com.logistics.identity.domain.entity.UserTest" time="1.723"/>
+  <testcase name="shouldRejectBlankDisplayName" classname="com.logistics.identity.domain.entity.UserTest" time="0.024"/>
+  <testcase name="shouldCreateUserInInvitedStatus" classname="com.logistics.identity.domain.entity.UserTest" time="2.143"/>
+  <testcase name="shouldRejectNullUserId" classname="com.logistics.identity.domain.entity.UserTest" time="0.031"/>
+  <testcase name="shouldChangeLifecycleStatus" classname="com.logistics.identity.domain.entity.UserTest" time="0.005"/>
+  <testcase name="shouldRejectNullTenantId" classname="com.logistics.identity.domain.entity.UserTest" time="0.071"/>
+  <testcase name="shouldChangeDisplayName" classname="com.logistics.identity.domain.entity.UserTest" time="0.005"/>
 </testsuite>
