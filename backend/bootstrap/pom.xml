@@ -25,6 +25,10 @@
         </dependency>
         <dependency>
             <groupId>com.logistics</groupId>
+            <artifactId>module-identity</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.logistics</groupId>
             <artifactId>module-driver</artifactId>
         </dependency>
         <dependency>
@@ -43,7 +47,18 @@
             <groupId>com.logistics</groupId>
             <artifactId>module-analytics</artifactId>
         </dependency>
-        
+
+        <!-- Flyway database migrations -->
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-core</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
+        </dependency>
+
         <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
