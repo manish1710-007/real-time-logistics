@@ -1,6 +1,6 @@
 com/logistics/identity/domain/valueobject/UserId.class
-com/logistics/identity/domain/valueobject/TenantId.class
 com/logistics/identity/domain/valueobject/UserStatus.class
+com/logistics/identity/domain/entity/Tenant.class
+com/logistics/identity/domain/valueobject/TenantId.class
 com/logistics/identity/domain/entity/User.class
 com/logistics/identity/domain/valueobject/TenantStatus.class
-com/logistics/identity/domain/entity/Tenant.class
