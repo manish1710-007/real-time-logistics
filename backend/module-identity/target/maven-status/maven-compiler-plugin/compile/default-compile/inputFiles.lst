@@ -3,6 +3,7 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/Tenant.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/User.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/TenantRepository.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/userRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/valueobject/PermissionId.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/valueobject/RoleId.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/valueobject/RoleType.java
@@ -13,3 +14,4 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/TenantEntity.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/mapper/TenantMapper.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/TenantJpaRepository.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/TenantRepositoryImpl.java
