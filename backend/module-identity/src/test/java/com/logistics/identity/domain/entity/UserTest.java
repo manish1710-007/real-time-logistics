@@ -1,11 +1,18 @@
 package com.logistics.identity.domain.entity;
 
+import java.time.Instant;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.Test;
+
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.UserId;
 import com.logistics.identity.domain.valueobject.UserStatus;
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserTest {
 
@@ -18,14 +25,23 @@ class UserTest {
                 userId,
                 tenantId,
                 "john@example.com",
-                "John Doe"
+                "hashed-password",
+                "John",
+                "Doe",
+                "+919876543210"
         );
 
         assertEquals(userId, user.id());
         assertEquals(tenantId, user.tenantId());
         assertEquals("john@example.com", user.email());
-        assertEquals("John Doe", user.displayName());
+        assertEquals("hashed-password", user.passwordHash());
+        assertEquals("John", user.firstName());
+        assertEquals("Doe", user.lastName());
+        assertEquals("+919876543210", user.phone());
         assertEquals(UserStatus.INVITED, user.status());
+        assertFalse(user.emailVerified());
+        assertNull(user.lastLoginAt());
+        assertEquals(0, user.version());
         assertNotNull(user.createdAt());
         assertNotNull(user.updatedAt());
     }
@@ -40,7 +56,10 @@ class UserTest {
                         null,
                         tenantId,
                         "john@example.com",
-                        "John Doe"
+                        "hashed-password",
+                        "John",
+                        "Doe",
+                        null
                 )
         );
     }
@@ -55,7 +74,10 @@ class UserTest {
                         userId,
                         null,
                         "john@example.com",
-                        "John Doe"
+                        "hashed-password",
+                        "John",
+                        "Doe",
+                        null
                 )
         );
     }
@@ -68,22 +90,75 @@ class UserTest {
                         UserId.generate(),
                         TenantId.generate(),
                         "   ",
-                        "John Doe"
+                        "hashed-password",
+                        "John",
+                        "Doe",
+                        null
                 )
         );
     }
 
     @Test
-    void shouldRejectBlankDisplayName() {
+    void shouldRejectBlankPasswordHash() {
         assertThrows(
                 IllegalArgumentException.class,
                 () -> User.create(
                         UserId.generate(),
                         TenantId.generate(),
                         "john@example.com",
-                        "   "
+                        "   ",
+                        "John",
+                        "Doe",
+                        null
                 )
         );
+    }
+
+    @Test
+    void shouldRejectBlankFirstName() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> User.create(
+                        UserId.generate(),
+                        TenantId.generate(),
+                        "john@example.com",
+                        "hashed-password",
+                        "   ",
+                        "Doe",
+                        null
+                )
+        );
+    }
+
+    @Test
+    void shouldRejectBlankLastName() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> User.create(
+                        UserId.generate(),
+                        TenantId.generate(),
+                        "john@example.com",
+                        "hashed-password",
+                        "John",
+                        "   ",
+                        null
+                )
+        );
+    }
+
+    @Test
+    void shouldNormalizeOptionalPhone() {
+        User user = User.create(
+                UserId.generate(),
+                TenantId.generate(),
+                "john@example.com",
+                "hashed-password",
+                "John",
+                "Doe",
+                "   "
+        );
+
+        assertNull(user.phone());
     }
 
     @Test
@@ -96,12 +171,52 @@ class UserTest {
     }
 
     @Test
-    void shouldChangeDisplayName() {
+    void shouldChangeName() {
         User user = createUser();
 
-        user.changeDisplayName("Jane Doe");
+        user.changeName("Jane", "Smith");
 
-        assertEquals("Jane Doe", user.displayName());
+        assertEquals("Jane", user.firstName());
+        assertEquals("Smith", user.lastName());
+    }
+
+    @Test
+    void shouldChangePhone() {
+        User user = createUser();
+
+        user.changePhone("+911234567890");
+
+        assertEquals("+911234567890", user.phone());
+    }
+
+    @Test
+    void shouldUpdatePasswordHash() {
+        User user = createUser();
+
+        user.updatePasswordHash("new-hashed-password");
+
+        assertEquals("new-hashed-password", user.passwordHash());
+    }
+
+    @Test
+    void shouldVerifyEmail() {
+        User user = createUser();
+
+        assertFalse(user.emailVerified());
+
+        user.verifyEmail();
+
+        assertTrue(user.emailVerified());
+    }
+
+    @Test
+    void shouldRecordLogin() {
+        User user = createUser();
+        Instant loginTime = Instant.parse("2026-09-18T00:00:00Z");
+
+        user.recordLogin(loginTime);
+
+        assertEquals(loginTime, user.lastLoginAt());
     }
 
     @Test
@@ -124,12 +239,54 @@ class UserTest {
         assertEquals(UserStatus.DELETED, user.status());
     }
 
+    @Test
+    void shouldReconstituteExistingUser() {
+        UserId userId = UserId.generate();
+        TenantId tenantId = TenantId.generate();
+        Instant createdAt = Instant.parse("2026-01-01T00:00:00Z");
+        Instant updatedAt = Instant.parse("2026-01-02T00:00:00Z");
+        Instant lastLoginAt = Instant.parse("2026-01-03T00:00:00Z");
+
+        User user = User.reconstitute(
+                userId,
+                tenantId,
+                "john@example.com",
+                "hashed-password",
+                "John",
+                "Doe",
+                "+919876543210",
+                UserStatus.ACTIVE,
+                true,
+                lastLoginAt,
+                createdAt,
+                updatedAt,
+                5
+        );
+
+        assertEquals(userId, user.id());
+        assertEquals(tenantId, user.tenantId());
+        assertEquals("john@example.com", user.email());
+        assertEquals("hashed-password", user.passwordHash());
+        assertEquals("John", user.firstName());
+        assertEquals("Doe", user.lastName());
+        assertEquals("+919876543210", user.phone());
+        assertEquals(UserStatus.ACTIVE, user.status());
+        assertTrue(user.emailVerified());
+        assertEquals(lastLoginAt, user.lastLoginAt());
+        assertEquals(createdAt, user.createdAt());
+        assertEquals(updatedAt, user.updatedAt());
+        assertEquals(5, user.version());
+    }
+
     private User createUser() {
         return User.create(
                 UserId.generate(),
                 TenantId.generate(),
                 "john@example.com",
-                "John Doe"
+                "hashed-password",
+                "John",
+                "Doe",
+                "+919876543210"
         );
     }
 }

@@ -1,11 +1,11 @@
 package com.logistics.identity.domain.entity;
 
+import java.time.Instant;
+import java.util.Objects;
+
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.UserId;
 import com.logistics.identity.domain.valueobject.UserStatus;
-
-import java.time.Instant;
-import java.util.Objects;
 
 public final class User {
 
@@ -13,35 +13,61 @@ public final class User {
     private final TenantId tenantId;
 
     private String email;
-    private String displayName;
+    private String passwordHash;
+    private String firstName;
+    private String lastName;
+    private String phone;
     private UserStatus status;
+    private boolean emailVerified;
+    private Instant lastLoginAt;
 
     private final Instant createdAt;
     private Instant updatedAt;
+    private long version;
 
     private User(
             UserId id,
             TenantId tenantId,
             String email,
-            String displayName,
+            String passwordHash,
+            String firstName,
+            String lastName,
+            String phone,
             UserStatus status,
+            boolean emailVerified,
+            Instant lastLoginAt,
             Instant createdAt,
-            Instant updatedAt
+            Instant updatedAt,
+            long version
     ) {
         this.id = Objects.requireNonNull(id, "User ID cannot be null");
         this.tenantId = Objects.requireNonNull(tenantId, "Tenant ID cannot be null");
         this.email = requireText(email, "User email");
-        this.displayName = requireText(displayName, "User display name");
+        this.passwordHash = requireText(passwordHash, "Password hash");
+        this.firstName = requireText(firstName, "First name");
+        this.lastName = requireText(lastName, "Last name");
+        this.phone = normalizeOptionalText(phone);
         this.status = Objects.requireNonNull(status, "User status cannot be null");
+        this.emailVerified = emailVerified;
+        this.lastLoginAt = lastLoginAt;
         this.createdAt = Objects.requireNonNull(createdAt, "Created at cannot be null");
         this.updatedAt = Objects.requireNonNull(updatedAt, "Updated at cannot be null");
+
+        if (version < 0) {
+            throw new IllegalArgumentException("Version cannot be negative");
+        }
+
+        this.version = version;
     }
 
     public static User create(
             UserId id,
             TenantId tenantId,
             String email,
-            String displayName
+            String passwordHash,
+            String firstName,
+            String lastName,
+            String phone
     ) {
         Instant now = Instant.now();
 
@@ -49,10 +75,48 @@ public final class User {
                 id,
                 tenantId,
                 email,
-                displayName,
+                passwordHash,
+                firstName,
+                lastName,
+                phone,
                 UserStatus.INVITED,
+                false,
+                null,
                 now,
-                now
+                now,
+                0
+        );
+    }
+
+    public static User reconstitute(
+            UserId id,
+            TenantId tenantId,
+            String email,
+            String passwordHash,
+            String firstName,
+            String lastName,
+            String phone,
+            UserStatus status,
+            boolean emailVerified,
+            Instant lastLoginAt,
+            Instant createdAt,
+            Instant updatedAt,
+            long version
+    ) {
+        return new User(
+                id,
+                tenantId,
+                email,
+                passwordHash,
+                firstName,
+                lastName,
+                phone,
+                status,
+                emailVerified,
+                lastLoginAt,
+                createdAt,
+                updatedAt,
+                version
         );
     }
 
@@ -68,12 +132,32 @@ public final class User {
         return email;
     }
 
-    public String displayName() {
-        return displayName;
+    public String passwordHash() {
+        return passwordHash;
+    }
+
+    public String firstName() {
+        return firstName;
+    }
+
+    public String lastName() {
+        return lastName;
+    }
+
+    public String phone() {
+        return phone;
     }
 
     public UserStatus status() {
         return status;
+    }
+
+    public boolean emailVerified() {
+        return emailVerified;
+    }
+
+    public Instant lastLoginAt() {
+        return lastLoginAt;
     }
 
     public Instant createdAt() {
@@ -84,13 +168,41 @@ public final class User {
         return updatedAt;
     }
 
+    public long version() {
+        return version;
+    }
+
     public void changeEmail(String newEmail) {
         this.email = requireText(newEmail, "User email");
         touch();
     }
 
-    public void changeDisplayName(String newDisplayName) {
-        this.displayName = requireText(newDisplayName, "User display name");
+    public void changeName(String newFirstName, String newLastName) {
+        this.firstName = requireText(newFirstName, "First name");
+        this.lastName = requireText(newLastName, "Last name");
+        touch();
+    }
+
+    public void changePhone(String newPhone) {
+        this.phone = normalizeOptionalText(newPhone);
+        touch();
+    }
+
+    public void updatePasswordHash(String newPasswordHash) {
+        this.passwordHash = requireText(newPasswordHash, "Password hash");
+        touch();
+    }
+
+    public void verifyEmail() {
+        this.emailVerified = true;
+        touch();
+    }
+
+    public void recordLogin(Instant loginAt) {
+        this.lastLoginAt = Objects.requireNonNull(
+                loginAt,
+                "Login time cannot be null"
+        );
         touch();
     }
 
@@ -131,5 +243,15 @@ public final class User {
         }
 
         return value;
+    }
+
+    private static String normalizeOptionalText(String value) {
+        if (value == null) {
+            return null;
+        }
+
+        String normalized = value.trim();
+
+        return normalized.isEmpty() ? null : normalized;
     }
 }
