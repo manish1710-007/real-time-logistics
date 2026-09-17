@@ -48,6 +48,24 @@ public final class Tenant {
         );
     }
 
+    public static Tenant reconstitute(
+        TenantId id,
+        String name,
+        String slug,
+        TenantStatus status,
+        Instant createdAt,
+        Instant updatedAt
+) {
+    return new Tenant(
+            id,
+            name,
+            slug,
+            status,
+            createdAt,
+            updatedAt
+    );
+}
+
     public TenantId id() {
         return id;
     }
