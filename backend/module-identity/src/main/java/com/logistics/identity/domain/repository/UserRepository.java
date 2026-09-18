@@ -6,7 +6,7 @@ import com.logistics.identity.domain.valueobject.UserId;
 
 import java.util.Optional;
 
-public interface userRepository {
+public interface UserRepository {
 
     User save(User user);
 
