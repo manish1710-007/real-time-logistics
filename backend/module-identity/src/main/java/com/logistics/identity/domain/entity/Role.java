@@ -77,6 +77,26 @@ public final class Role {
         );
     }
 
+    public static Role reconstitute(
+        RoleId id,
+        TenantId tenantId,
+        String name,
+        RoleType type,
+        Set<PermissionId> permissionIds,
+        Instant createdAt,
+        Instant updatedAt
+    ) {
+        return new Role(
+            id,
+            tenantId,
+            name,
+            type,
+            permissionIds,
+            createdAt,
+            updatedAt
+        );
+    }
+
     public RoleId id() {
         return id;
     }
