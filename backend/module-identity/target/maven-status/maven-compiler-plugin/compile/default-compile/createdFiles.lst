@@ -3,6 +3,7 @@ com/logistics/identity/infrastructure/persistence/mapper/PermissionMapper.class
 com/logistics/identity/infrastructure/persistence/entity/RoleEntity.class
 com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.class
 com/logistics/identity/infrastructure/persistence/repository/RoleRepositoryImpl.class
+com/logistics/identity/infrastructure/persistence/entity/UserSessionEntity.class
 com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.class
 com/logistics/identity/domain/repository/RoleRepository.class
 com/logistics/identity/infrastructure/persistence/entity/PermissionEntity.class
