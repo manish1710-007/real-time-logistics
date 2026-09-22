@@ -28,6 +28,18 @@ public final class Permission {
         return new Permission(id, code, description);
     }
 
+    public static Permission reconstitute(
+            PermissionId id,
+            String code,
+            String description
+    ){
+        return new Permission(
+            id, 
+            code,
+            description
+        );
+    }
+
     public PermissionId id() {
         return id;
     }

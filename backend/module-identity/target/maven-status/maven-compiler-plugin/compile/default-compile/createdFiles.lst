@@ -1,4 +1,5 @@
 com/logistics/identity/infrastructure/persistence/entity/RolePermissionEntity$RolePermissionId.class
+com/logistics/identity/infrastructure/persistence/mapper/PermissionMapper.class
 com/logistics/identity/infrastructure/persistence/entity/RoleEntity.class
 com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.class
 com/logistics/identity/infrastructure/persistence/repository/RoleRepositoryImpl.class
@@ -9,5 +10,7 @@ com/logistics/identity/infrastructure/persistence/repository/UserJpaRepository.c
 com/logistics/identity/domain/repository/UserRepository.class
 com/logistics/identity/infrastructure/persistence/repository/RolePermissionJpaRepository.class
 com/logistics/identity/infrastructure/persistence/repository/RoleJpaRepository.class
+com/logistics/identity/infrastructure/persistence/repository/PermissionRepositoryImpl.class
 com/logistics/identity/infrastructure/persistence/entity/RolePermissionEntity.class
+com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.class
 com/logistics/identity/domain/repository/PermissionRepository.class
