@@ -22,8 +22,7 @@ public final class TenantMapper {
                 tenant.slug(),
                 tenant.status().name(),
                 tenant.createdAt(),
-                tenant.updatedAt()
-        );
+                tenant.updatedAt());
     }
 
     public static Tenant toDomain(TenantEntity entity) {
@@ -37,7 +36,6 @@ public final class TenantMapper {
                 entity.getSlug(),
                 TenantStatus.valueOf(entity.getStatus()),
                 entity.getCreatedAt(),
-                entity.getUpdatedAt()
-        );
+                entity.getUpdatedAt());
     }
-} 
+}

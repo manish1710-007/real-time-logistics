@@ -2,7 +2,6 @@ package com.logistics.identity.domain.repository;
 
 import com.logistics.identity.domain.entity.Tenant;
 import com.logistics.identity.domain.valueobject.TenantId;
-
 import java.util.Optional;
 
 public interface TenantRepository {

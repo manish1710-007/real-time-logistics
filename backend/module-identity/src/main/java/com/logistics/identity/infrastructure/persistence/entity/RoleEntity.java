@@ -1,20 +1,17 @@
 package com.logistics.identity.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
-
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(
-    name = "roles",
-    uniqueConstraints = {
-        @UniqueConstraint(
-            name = "uq_roles_tenant_name",
-            columnNames = {"tenant_id", "name"}
-        )
-    }
-)
+        name = "roles",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                    name = "uq_roles_tenant_name",
+                    columnNames = {"tenant_id", "name"})
+        })
 public class RoleEntity {
 
     @Id
@@ -40,14 +37,7 @@ public class RoleEntity {
         // JPA
     }
 
-    public RoleEntity(
-            UUID id,
-            UUID tenantId,
-            String name,
-            String type,
-            Instant createdAt,
-            Instant updatedAt
-    ) {
+    public RoleEntity(UUID id, UUID tenantId, String name, String type, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.tenantId = tenantId;
         this.name = name;

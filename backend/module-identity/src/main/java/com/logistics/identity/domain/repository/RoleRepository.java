@@ -3,7 +3,6 @@ package com.logistics.identity.domain.repository;
 import com.logistics.identity.domain.entity.Role;
 import com.logistics.identity.domain.valueobject.RoleId;
 import com.logistics.identity.domain.valueobject.TenantId;
-
 import java.util.Optional;
 
 public interface RoleRepository {
@@ -12,13 +11,7 @@ public interface RoleRepository {
 
     Optional<Role> findById(RoleId roleId);
 
-    Optional<Role> findByTenantIdAndName(
-            TenantId tenantId,
-            String name
-    );
+    Optional<Role> findByTenantIdAndName(TenantId tenantId, String name);
 
-    boolean existsByTenantIdAndName(
-            TenantId tenantId,
-            String name
-    );
+    boolean existsByTenantIdAndName(TenantId tenantId, String name);
 }

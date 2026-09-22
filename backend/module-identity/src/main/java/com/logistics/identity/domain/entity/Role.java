@@ -4,7 +4,6 @@ import com.logistics.identity.domain.valueobject.PermissionId;
 import com.logistics.identity.domain.valueobject.RoleId;
 import com.logistics.identity.domain.valueobject.RoleType;
 import com.logistics.identity.domain.valueobject.TenantId;
-
 import java.time.Instant;
 import java.util.Collections;
 import java.util.HashSet;
@@ -31,8 +30,7 @@ public final class Role {
             RoleType type,
             Set<PermissionId> permissionIds,
             Instant createdAt,
-            Instant updatedAt
-    ) {
+            Instant updatedAt) {
         this.id = Objects.requireNonNull(id, "Role ID cannot be null");
         this.tenantId = tenantId;
         this.name = requireText(name, "Role name");
@@ -42,28 +40,13 @@ public final class Role {
         this.updatedAt = Objects.requireNonNull(updatedAt, "Updated at cannot be null");
     }
 
-    public static Role createSystemRole(
-            RoleId id,
-            String name
-    ) {
+    public static Role createSystemRole(RoleId id, String name) {
         Instant now = Instant.now();
 
-        return new Role(
-                id,
-                null,
-                name,
-                RoleType.SYSTEM,
-                Set.of(),
-                now,
-                now
-        );
+        return new Role(id, null, name, RoleType.SYSTEM, Set.of(), now, now);
     }
 
-    public static Role createTenantRole(
-            RoleId id,
-            TenantId tenantId,
-            String name
-    ) {
+    public static Role createTenantRole(RoleId id, TenantId tenantId, String name) {
         Instant now = Instant.now();
 
         return new Role(
@@ -73,28 +56,18 @@ public final class Role {
                 RoleType.TENANT,
                 Set.of(),
                 now,
-                now
-        );
+                now);
     }
 
     public static Role reconstitute(
-        RoleId id,
-        TenantId tenantId,
-        String name,
-        RoleType type,
-        Set<PermissionId> permissionIds,
-        Instant createdAt,
-        Instant updatedAt
-    ) {
-        return new Role(
-            id,
-            tenantId,
-            name,
-            type,
-            permissionIds,
-            createdAt,
-            updatedAt
-        );
+            RoleId id,
+            TenantId tenantId,
+            String name,
+            RoleType type,
+            Set<PermissionId> permissionIds,
+            Instant createdAt,
+            Instant updatedAt) {
+        return new Role(id, tenantId, name, type, permissionIds, createdAt, updatedAt);
     }
 
     public RoleId id() {

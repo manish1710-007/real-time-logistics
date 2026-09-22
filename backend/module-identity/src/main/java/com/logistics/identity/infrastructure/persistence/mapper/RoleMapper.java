@@ -6,7 +6,6 @@ import com.logistics.identity.domain.valueobject.RoleId;
 import com.logistics.identity.domain.valueobject.RoleType;
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.infrastructure.persistence.entity.RoleEntity;
-
 import java.util.Set;
 
 public final class RoleMapper {
@@ -22,33 +21,23 @@ public final class RoleMapper {
 
         return new RoleEntity(
                 role.id().value(),
-                role.tenantId() != null
-                        ? role.tenantId().value()
-                        : null,
+                role.tenantId() != null ? role.tenantId().value() : null,
                 role.name(),
                 role.type().name(),
                 role.createdAt(),
-                role.updatedAt()
-        );
+                role.updatedAt());
     }
 
-    public static Role toDomain(
-            RoleEntity entity,
-            Set<PermissionId> permissionIds
-    ) {
+    public static Role toDomain(RoleEntity entity, Set<PermissionId> permissionIds) {
         if (entity == null) {
             throw new IllegalArgumentException("Role entity cannot be null");
         }
 
         if (permissionIds == null) {
-            throw new IllegalArgumentException(
-                    "Permission IDs cannot be null"
-            );
+            throw new IllegalArgumentException("Permission IDs cannot be null");
         }
 
-        TenantId tenantId = entity.getTenantId() != null
-                ? new TenantId(entity.getTenantId())
-                : null;
+        TenantId tenantId = entity.getTenantId() != null ? new TenantId(entity.getTenantId()) : null;
 
         return Role.reconstitute(
                 new RoleId(entity.getId()),
@@ -57,7 +46,6 @@ public final class RoleMapper {
                 RoleType.valueOf(entity.getType()),
                 permissionIds,
                 entity.getCreatedAt(),
-                entity.getUpdatedAt()
-        );
+                entity.getUpdatedAt());
     }
 }

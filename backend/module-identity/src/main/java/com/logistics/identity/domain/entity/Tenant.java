@@ -2,7 +2,6 @@ package com.logistics.identity.domain.entity;
 
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.TenantStatus;
-
 import java.time.Instant;
 import java.util.Objects;
 
@@ -15,14 +14,7 @@ public final class Tenant {
     private final Instant createdAt;
     private Instant updatedAt;
 
-    private Tenant(
-            TenantId id,
-            String name,
-            String slug,
-            TenantStatus status,
-            Instant createdAt,
-            Instant updatedAt
-    ) {
+    private Tenant(TenantId id, String name, String slug, TenantStatus status, Instant createdAt, Instant updatedAt) {
         this.id = Objects.requireNonNull(id, "Tenant ID cannot be null");
         this.name = requireText(name, "Tenant name");
         this.slug = requireText(slug, "Tenant slug");
@@ -31,40 +23,16 @@ public final class Tenant {
         this.updatedAt = Objects.requireNonNull(updatedAt, "Updated at cannot be null");
     }
 
-    public static Tenant create(
-            TenantId id,
-            String name,
-            String slug
-    ) {
+    public static Tenant create(TenantId id, String name, String slug) {
         Instant now = Instant.now();
 
-        return new Tenant(
-                id,
-                name,
-                slug,
-                TenantStatus.ACTIVE,
-                now,
-                now
-        );
+        return new Tenant(id, name, slug, TenantStatus.ACTIVE, now, now);
     }
 
     public static Tenant reconstitute(
-        TenantId id,
-        String name,
-        String slug,
-        TenantStatus status,
-        Instant createdAt,
-        Instant updatedAt
-) {
-    return new Tenant(
-            id,
-            name,
-            slug,
-            status,
-            createdAt,
-            updatedAt
-    );
-}
+            TenantId id, String name, String slug, TenantStatus status, Instant createdAt, Instant updatedAt) {
+        return new Tenant(id, name, slug, status, createdAt, updatedAt);
+    }
 
     public TenantId id() {
         return id;

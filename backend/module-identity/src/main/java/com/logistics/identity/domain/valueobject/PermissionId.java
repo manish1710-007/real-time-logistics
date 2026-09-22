@@ -9,7 +9,7 @@ public record PermissionId(UUID value) {
             throw new IllegalArgumentException("Permission ID cannot be null");
         }
     }
-    
+
     public static PermissionId generate() {
         return new PermissionId(UUID.randomUUID());
     }

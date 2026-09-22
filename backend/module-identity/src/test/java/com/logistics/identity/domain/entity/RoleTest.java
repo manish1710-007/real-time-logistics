@@ -1,28 +1,24 @@
 package com.logistics.identity.domain.entity;
 
-import java.util.Set;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import org.junit.jupiter.api.Test;
 
 import com.logistics.identity.domain.valueobject.PermissionId;
 import com.logistics.identity.domain.valueobject.RoleId;
 import com.logistics.identity.domain.valueobject.RoleType;
 import com.logistics.identity.domain.valueobject.TenantId;
+import java.util.Set;
+import org.junit.jupiter.api.Test;
 
 class RoleTest {
 
     @Test
     void shouldCreateSystemRole() {
-        Role role = Role.createSystemRole(
-                RoleId.generate(),
-                "Platform Administrator"
-        );
+        Role role = Role.createSystemRole(RoleId.generate(), "Platform Administrator");
 
         assertEquals(RoleType.SYSTEM, role.type());
         assertNull(role.tenantId());
@@ -36,11 +32,7 @@ class RoleTest {
     void shouldCreateTenantRole() {
         TenantId tenantId = TenantId.generate();
 
-        Role role = Role.createTenantRole(
-                RoleId.generate(),
-                tenantId,
-                "Fleet Manager"
-        );
+        Role role = Role.createTenantRole(RoleId.generate(), tenantId, "Fleet Manager");
 
         assertEquals(RoleType.TENANT, role.type());
         assertEquals(tenantId, role.tenantId());
@@ -49,33 +41,17 @@ class RoleTest {
 
     @Test
     void shouldRejectNullTenantIdForTenantRole() {
-        assertThrows(
-                NullPointerException.class,
-                () -> Role.createTenantRole(
-                        RoleId.generate(),
-                        null,
-                        "Fleet Manager"
-                )
-        );
+        assertThrows(NullPointerException.class, () -> Role.createTenantRole(RoleId.generate(), null, "Fleet Manager"));
     }
 
     @Test
     void shouldRejectBlankRoleName() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> Role.createSystemRole(
-                        RoleId.generate(),
-                        "   "
-                )
-        );
+        assertThrows(IllegalArgumentException.class, () -> Role.createSystemRole(RoleId.generate(), "   "));
     }
 
     @Test
     void shouldAddPermission() {
-        Role role = Role.createSystemRole(
-                RoleId.generate(),
-                "Platform Administrator"
-        );
+        Role role = Role.createSystemRole(RoleId.generate(), "Platform Administrator");
 
         PermissionId permissionId = PermissionId.generate();
 
@@ -87,10 +63,7 @@ class RoleTest {
 
     @Test
     void shouldNotAddDuplicatePermission() {
-        Role role = Role.createSystemRole(
-                RoleId.generate(),
-                "Platform Administrator"
-        );
+        Role role = Role.createSystemRole(RoleId.generate(), "Platform Administrator");
 
         PermissionId permissionId = PermissionId.generate();
 
@@ -102,10 +75,7 @@ class RoleTest {
 
     @Test
     void shouldRemovePermission() {
-        Role role = Role.createSystemRole(
-                RoleId.generate(),
-                "Platform Administrator"
-        );
+        Role role = Role.createSystemRole(RoleId.generate(), "Platform Administrator");
 
         PermissionId permissionId = PermissionId.generate();
 
@@ -118,43 +88,25 @@ class RoleTest {
 
     @Test
     void shouldRejectNullPermissionId() {
-        Role role = Role.createSystemRole(
-                RoleId.generate(),
-                "Platform Administrator"
-        );
+        Role role = Role.createSystemRole(RoleId.generate(), "Platform Administrator");
 
-        assertThrows(
-                NullPointerException.class,
-                () -> role.addPermission(null)
-        );
+        assertThrows(NullPointerException.class, () -> role.addPermission(null));
 
-        assertThrows(
-                NullPointerException.class,
-                () -> role.removePermission(null)
-        );
+        assertThrows(NullPointerException.class, () -> role.removePermission(null));
 
-        assertThrows(
-                NullPointerException.class,
-                () -> role.hasPermission(null)
-        );
+        assertThrows(NullPointerException.class, () -> role.hasPermission(null));
     }
 
     @Test
     void shouldNotAllowExternalMutationOfPermissions() {
-        Role role = Role.createSystemRole(
-                RoleId.generate(),
-                "Platform Administrator"
-        );
+        Role role = Role.createSystemRole(RoleId.generate(), "Platform Administrator");
 
         PermissionId permissionId = PermissionId.generate();
         role.addPermission(permissionId);
 
         Set<PermissionId> permissions = role.permissionIds();
 
-        assertThrows(
-                UnsupportedOperationException.class,
-                () -> permissions.add(PermissionId.generate())
-        );
+        assertThrows(UnsupportedOperationException.class, () -> permissions.add(PermissionId.generate()));
 
         assertEquals(1, role.permissionIds().size());
     }

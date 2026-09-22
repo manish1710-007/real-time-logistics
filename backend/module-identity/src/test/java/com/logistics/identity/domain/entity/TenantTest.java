@@ -1,20 +1,16 @@
 package com.logistics.identity.domain.entity;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.TenantStatus;
 import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class TenantTest {
 
     @Test
     void shouldCreateActiveTenant() {
-        Tenant tenant = Tenant.create(
-                TenantId.generate(),
-                "ACME Logistics",
-                "acme-logistics"
-        );
+        Tenant tenant = Tenant.create(TenantId.generate(), "ACME Logistics", "acme-logistics");
 
         assertNotNull(tenant.id());
         assertEquals("ACME Logistics", tenant.name());
@@ -26,47 +22,22 @@ class TenantTest {
 
     @Test
     void shouldRejectNullTenantId() {
-        assertThrows(
-                NullPointerException.class,
-                () -> Tenant.create(
-                        null,
-                        "ACME Logistics",
-                        "acme-logistics"
-                )
-        );
+        assertThrows(NullPointerException.class, () -> Tenant.create(null, "ACME Logistics", "acme-logistics"));
     }
 
     @Test
     void shouldRejectBlankTenantName() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> Tenant.create(
-                        TenantId.generate(),
-                        "   ",
-                        "acme-logistics"
-                )
-        );
+        assertThrows(IllegalArgumentException.class, () -> Tenant.create(TenantId.generate(), "   ", "acme-logistics"));
     }
 
     @Test
     void shouldRejectBlankTenantSlug() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> Tenant.create(
-                        TenantId.generate(),
-                        "ACME Logistics",
-                        "   "
-                )
-        );
+        assertThrows(IllegalArgumentException.class, () -> Tenant.create(TenantId.generate(), "ACME Logistics", "   "));
     }
 
     @Test
     void shouldSuspendTenant() {
-        Tenant tenant = Tenant.create(
-                TenantId.generate(),
-                "ACME Logistics",
-                "acme-logistics"
-        );
+        Tenant tenant = Tenant.create(TenantId.generate(), "ACME Logistics", "acme-logistics");
 
         tenant.suspend();
 
@@ -75,11 +46,7 @@ class TenantTest {
 
     @Test
     void shouldActivateTenant() {
-        Tenant tenant = Tenant.create(
-                TenantId.generate(),
-                "ACME Logistics",
-                "acme-logistics"
-        );
+        Tenant tenant = Tenant.create(TenantId.generate(), "ACME Logistics", "acme-logistics");
 
         tenant.suspend();
         tenant.activate();
@@ -89,11 +56,7 @@ class TenantTest {
 
     @Test
     void shouldDisableTenant() {
-        Tenant tenant = Tenant.create(
-                TenantId.generate(),
-                "ACME Logistics",
-                "acme-logistics"
-        );
+        Tenant tenant = Tenant.create(TenantId.generate(), "ACME Logistics", "acme-logistics");
 
         tenant.disable();
 
@@ -102,11 +65,7 @@ class TenantTest {
 
     @Test
     void shouldRenameTenant() {
-        Tenant tenant = Tenant.create(
-                TenantId.generate(),
-                "ACME Logistics",
-                "acme-logistics"
-        );
+        Tenant tenant = Tenant.create(TenantId.generate(), "ACME Logistics", "acme-logistics");
 
         tenant.rename("ACME Transport");
 
@@ -115,11 +74,7 @@ class TenantTest {
 
     @Test
     void shouldChangeTenantSlug() {
-        Tenant tenant = Tenant.create(
-                TenantId.generate(),
-                "ACME Logistics",
-                "acme-logistics"
-        );
+        Tenant tenant = Tenant.create(TenantId.generate(), "ACME Logistics", "acme-logistics");
 
         tenant.changeSlug("acme-transport");
 

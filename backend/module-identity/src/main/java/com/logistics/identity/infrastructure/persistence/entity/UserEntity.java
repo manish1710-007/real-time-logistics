@@ -1,25 +1,22 @@
 package com.logistics.identity.infrastructure.persistence.entity;
 
-import java.time.Instant;
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.persistence.Version;
+import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(
-    name = "users",
-    uniqueConstraints = {
-        @UniqueConstraint(
-            name = "uq_users_tenant_email",
-            columnNames = {"tenant_id", "email"}
-        )
-    }
-)
+        name = "users",
+        uniqueConstraints = {
+            @UniqueConstraint(
+                    name = "uq_users_tenant_email",
+                    columnNames = {"tenant_id", "email"})
+        })
 public class UserEntity {
 
     @Id
@@ -80,8 +77,7 @@ public class UserEntity {
             Instant lastLoginAt,
             Instant createdAt,
             Instant updatedAt,
-            long version
-    ) {
+            long version) {
         this.id = id;
         this.tenantId = tenantId;
         this.email = email;

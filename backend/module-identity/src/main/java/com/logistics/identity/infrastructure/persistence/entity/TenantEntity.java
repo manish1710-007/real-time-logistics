@@ -1,20 +1,13 @@
 package com.logistics.identity.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
-
 import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(
-    name = "tenants",
-    uniqueConstraints = {
-        @UniqueConstraint(
-            name = "uq_tenants_slug",
-            columnNames = "slug"
-        )
-    }
-)
+        name = "tenants",
+        uniqueConstraints = {@UniqueConstraint(name = "uq_tenants_slug", columnNames = "slug")})
 public class TenantEntity {
 
     @Id
@@ -40,14 +33,7 @@ public class TenantEntity {
         // JPA
     }
 
-    public TenantEntity(
-            UUID id,
-            String name,
-            String slug,
-            String status,
-            Instant createdAt,
-            Instant updatedAt
-    ) {
+    public TenantEntity(UUID id, String name, String slug, String status, Instant createdAt, Instant updatedAt) {
         this.id = id;
         this.name = name;
         this.slug = slug;

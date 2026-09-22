@@ -6,9 +6,8 @@ import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.UserId;
 import com.logistics.identity.infrastructure.persistence.entity.UserEntity;
 import com.logistics.identity.infrastructure.persistence.mapper.UserMapper;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserRepositoryImpl implements UserRepository {
@@ -38,48 +37,32 @@ public class UserRepositoryImpl implements UserRepository {
             throw new IllegalArgumentException("User ID cannot be null");
         }
 
-        return userJpaRepository.findById(userId.value())
-                .map(UserMapper::toDomain);
+        return userJpaRepository.findById(userId.value()).map(UserMapper::toDomain);
     }
 
     @Override
-    public Optional<User> findByTenantIdAndEmail(
-            TenantId tenantId,
-            String email
-    ) {
+    public Optional<User> findByTenantIdAndEmail(TenantId tenantId, String email) {
         if (tenantId == null) {
             throw new IllegalArgumentException("Tenant ID cannot be null");
         }
 
         if (email == null || email.isBlank()) {
-            throw new IllegalArgumentException(
-                    "User email cannot be null or blank"
-            );
+            throw new IllegalArgumentException("User email cannot be null or blank");
         }
 
-        return userJpaRepository
-                .findByTenantIdAndEmail(tenantId.value(), email)
-                .map(UserMapper::toDomain);
+        return userJpaRepository.findByTenantIdAndEmail(tenantId.value(), email).map(UserMapper::toDomain);
     }
 
     @Override
-    public boolean existsByTenantIdAndEmail(
-            TenantId tenantId,
-            String email
-    ) {
+    public boolean existsByTenantIdAndEmail(TenantId tenantId, String email) {
         if (tenantId == null) {
             throw new IllegalArgumentException("Tenant ID cannot be null");
         }
 
         if (email == null || email.isBlank()) {
-            throw new IllegalArgumentException(
-                    "User email cannot be null or blank"
-            );
+            throw new IllegalArgumentException("User email cannot be null or blank");
         }
 
-        return userJpaRepository.existsByTenantIdAndEmail(
-                tenantId.value(),
-                email
-        );
+        return userJpaRepository.existsByTenantIdAndEmail(tenantId.value(), email);
     }
 }

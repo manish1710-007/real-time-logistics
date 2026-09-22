@@ -5,9 +5,8 @@ import com.logistics.identity.domain.repository.TenantRepository;
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.infrastructure.persistence.entity.TenantEntity;
 import com.logistics.identity.infrastructure.persistence.mapper.TenantMapper;
-import org.springframework.stereotype.Repository;
-
 import java.util.Optional;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class TenantRepositoryImpl implements TenantRepository {
@@ -33,8 +32,7 @@ public class TenantRepositoryImpl implements TenantRepository {
             throw new IllegalArgumentException("Tenant ID cannot be null");
         }
 
-        return tenantJpaRepository.findById(tenantId.value())
-                .map(TenantMapper::toDomain);
+        return tenantJpaRepository.findById(tenantId.value()).map(TenantMapper::toDomain);
     }
 
     @Override
@@ -43,8 +41,7 @@ public class TenantRepositoryImpl implements TenantRepository {
             throw new IllegalArgumentException("Tenant slug cannot be null or blank");
         }
 
-        return tenantJpaRepository.findBySlug(slug)
-                .map(TenantMapper::toDomain);
+        return tenantJpaRepository.findBySlug(slug).map(TenantMapper::toDomain);
     }
 
     @Override

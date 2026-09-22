@@ -1,20 +1,12 @@
 package com.logistics.identity.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
-
-import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 @Table(
-    name = "permissions",
-    uniqueConstraints = {
-        @UniqueConstraint(
-            name = "uq_permissions_code",
-            columnNames = "code"
-        )
-    }
-)
+        name = "permissions",
+        uniqueConstraints = {@UniqueConstraint(name = "uq_permissions_code", columnNames = "code")})
 public class PermissionEntity {
 
     @Id
@@ -27,14 +19,9 @@ public class PermissionEntity {
     @Column(name = "description", nullable = false, length = 255)
     private String description;
 
-    protected PermissionEntity() {
-    }
+    protected PermissionEntity() {}
 
-    public PermissionEntity(
-            UUID id,
-            String code,
-            String description
-    ) {
+    public PermissionEntity(UUID id, String code, String description) {
         this.id = id;
         this.code = code;
         this.description = description;

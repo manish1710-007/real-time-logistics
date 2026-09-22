@@ -1,2 +1,3 @@
+com/logistics/identity/domain/entity/UserSessionTest.class
 com/logistics/identity/domain/entity/UserTest.class
 com/logistics/identity/domain/entity/TenantTest.class

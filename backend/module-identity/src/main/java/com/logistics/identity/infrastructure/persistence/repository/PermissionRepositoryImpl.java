@@ -5,28 +5,24 @@ import com.logistics.identity.domain.repository.PermissionRepository;
 import com.logistics.identity.domain.valueobject.PermissionId;
 import com.logistics.identity.infrastructure.persistence.entity.PermissionEntity;
 import com.logistics.identity.infrastructure.persistence.mapper.PermissionMapper;
+import java.util.Optional;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Repository
 public class PermissionRepositoryImpl implements PermissionRepository {
 
     private final PermissionJpaRepository permissionJpaRepository;
 
-    public PermissionRepositoryImpl(
-        PermissionJpaRepository permissionJpaRepository
-    ) {
+    public PermissionRepositoryImpl(PermissionJpaRepository permissionJpaRepository) {
         this.permissionJpaRepository = permissionJpaRepository;
     }
 
     @Override
     @Transactional
     public Permission save(Permission permission) {
-        if (permission == null) { 
+        if (permission == null) {
             throw new IllegalArgumentException("Permission cannot be null");
-    
         }
 
         PermissionEntity entity = PermissionMapper.toEntity(permission);
@@ -42,9 +38,7 @@ public class PermissionRepositoryImpl implements PermissionRepository {
             throw new IllegalArgumentException("Permission ID cannot be null");
         }
 
-        return permissionJpaRepository
-                .findById(permissionId.value())
-                .map(PermissionMapper::toDomain);
+        return permissionJpaRepository.findById(permissionId.value()).map(PermissionMapper::toDomain);
     }
 
     @Override
@@ -52,9 +46,7 @@ public class PermissionRepositoryImpl implements PermissionRepository {
     public Optional<Permission> findByCode(String code) {
         validateCode(code);
 
-        return permissionJpaRepository
-                .findByCode(code)
-                .map(PermissionMapper::toDomain);
+        return permissionJpaRepository.findByCode(code).map(PermissionMapper::toDomain);
     }
 
     @Override
@@ -65,10 +57,9 @@ public class PermissionRepositoryImpl implements PermissionRepository {
         return permissionJpaRepository.existsByCode(code);
     }
 
-    private static void validateCode(String code){
-        if (code == null || code.isBlank()){
-            throw new IllegalArgumentException(
-                "Permission code cannot be null or blank");
+    private static void validateCode(String code) {
+        if (code == null || code.isBlank()) {
+            throw new IllegalArgumentException("Permission code cannot be null or blank");
         }
     }
 }

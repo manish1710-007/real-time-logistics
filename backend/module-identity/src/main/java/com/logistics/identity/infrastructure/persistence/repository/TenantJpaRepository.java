@@ -1,10 +1,9 @@
 package com.logistics.identity.infrastructure.persistence.repository;
 
 import com.logistics.identity.infrastructure.persistence.entity.TenantEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-
 import java.util.Optional;
 import java.util.UUID;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface TenantJpaRepository extends JpaRepository<TenantEntity, UUID> {
 

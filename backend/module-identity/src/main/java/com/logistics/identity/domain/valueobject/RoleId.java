@@ -13,5 +13,4 @@ public record RoleId(UUID value) {
     public static RoleId generate() {
         return new RoleId(UUID.randomUUID());
     }
-    
 }

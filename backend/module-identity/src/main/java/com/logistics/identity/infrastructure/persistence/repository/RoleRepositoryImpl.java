@@ -8,13 +8,12 @@ import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.infrastructure.persistence.entity.RoleEntity;
 import com.logistics.identity.infrastructure.persistence.entity.RolePermissionEntity;
 import com.logistics.identity.infrastructure.persistence.mapper.RoleMapper;
-import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
-
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 @Repository
 public class RoleRepositoryImpl implements RoleRepository {
@@ -23,9 +22,7 @@ public class RoleRepositoryImpl implements RoleRepository {
     private final RolePermissionJpaRepository rolePermissionJpaRepository;
 
     public RoleRepositoryImpl(
-            RoleJpaRepository roleJpaRepository,
-            RolePermissionJpaRepository rolePermissionJpaRepository
-    ) {
+            RoleJpaRepository roleJpaRepository, RolePermissionJpaRepository rolePermissionJpaRepository) {
         this.roleJpaRepository = roleJpaRepository;
         this.rolePermissionJpaRepository = rolePermissionJpaRepository;
     }
@@ -46,18 +43,10 @@ public class RoleRepositoryImpl implements RoleRepository {
         rolePermissionJpaRepository.deleteByRoleId(roleId);
 
         role.permissionIds().stream()
-                .map(permissionId ->
-                        new RolePermissionEntity(
-                                roleId,
-                                permissionId.value()
-                        )
-                )
+                .map(permissionId -> new RolePermissionEntity(roleId, permissionId.value()))
                 .forEach(rolePermissionJpaRepository::save);
 
-        return RoleMapper.toDomain(
-                savedEntity,
-                role.permissionIds()
-        );
+        return RoleMapper.toDomain(savedEntity, role.permissionIds());
     }
 
     @Override
@@ -67,16 +56,12 @@ public class RoleRepositoryImpl implements RoleRepository {
             throw new IllegalArgumentException("Role ID cannot be null");
         }
 
-        return roleJpaRepository.findById(roleId.value())
-                .map(this::toDomain);
+        return roleJpaRepository.findById(roleId.value()).map(this::toDomain);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Optional<Role> findByTenantIdAndName(
-            TenantId tenantId,
-            String name
-    ) {
+    public Optional<Role> findByTenantIdAndName(TenantId tenantId, String name) {
         validateName(name);
 
         Optional<RoleEntity> entity;
@@ -84,10 +69,7 @@ public class RoleRepositoryImpl implements RoleRepository {
         if (tenantId == null) {
             entity = roleJpaRepository.findByTenantIdIsNullAndName(name);
         } else {
-            entity = roleJpaRepository.findByTenantIdAndName(
-                    tenantId.value(),
-                    name
-            );
+            entity = roleJpaRepository.findByTenantIdAndName(tenantId.value(), name);
         }
 
         return entity.map(this::toDomain);
@@ -95,38 +77,28 @@ public class RoleRepositoryImpl implements RoleRepository {
 
     @Override
     @Transactional(readOnly = true)
-    public boolean existsByTenantIdAndName(
-            TenantId tenantId,
-            String name
-    ) {
+    public boolean existsByTenantIdAndName(TenantId tenantId, String name) {
         validateName(name);
 
         if (tenantId == null) {
             return roleJpaRepository.existsByTenantIdIsNullAndName(name);
         }
 
-        return roleJpaRepository.existsByTenantIdAndName(
-                tenantId.value(),
-                name
-        );
+        return roleJpaRepository.existsByTenantIdAndName(tenantId.value(), name);
     }
 
     private Role toDomain(RoleEntity entity) {
-        Set<PermissionId> permissionIds =
-                rolePermissionJpaRepository.findByRoleId(entity.getId())
-                        .stream()
-                        .map(RolePermissionEntity::getPermissionId)
-                        .map(PermissionId::new)
-                        .collect(Collectors.toSet());
+        Set<PermissionId> permissionIds = rolePermissionJpaRepository.findByRoleId(entity.getId()).stream()
+                .map(RolePermissionEntity::getPermissionId)
+                .map(PermissionId::new)
+                .collect(Collectors.toSet());
 
         return RoleMapper.toDomain(entity, permissionIds);
     }
 
     private static void validateName(String name) {
         if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException(
-                    "Role name cannot be null or blank"
-            );
+            throw new IllegalArgumentException("Role name cannot be null or blank");
         }
     }
 }

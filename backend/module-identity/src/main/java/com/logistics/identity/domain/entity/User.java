@@ -1,11 +1,10 @@
 package com.logistics.identity.domain.entity;
 
-import java.time.Instant;
-import java.util.Objects;
-
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.UserId;
 import com.logistics.identity.domain.valueobject.UserStatus;
+import java.time.Instant;
+import java.util.Objects;
 
 public final class User {
 
@@ -38,8 +37,7 @@ public final class User {
             Instant lastLoginAt,
             Instant createdAt,
             Instant updatedAt,
-            long version
-    ) {
+            long version) {
         this.id = Objects.requireNonNull(id, "User ID cannot be null");
         this.tenantId = Objects.requireNonNull(tenantId, "Tenant ID cannot be null");
         this.email = requireText(email, "User email");
@@ -67,8 +65,7 @@ public final class User {
             String passwordHash,
             String firstName,
             String lastName,
-            String phone
-    ) {
+            String phone) {
         Instant now = Instant.now();
 
         return new User(
@@ -84,8 +81,7 @@ public final class User {
                 null,
                 now,
                 now,
-                0
-        );
+                0);
     }
 
     public static User reconstitute(
@@ -101,8 +97,7 @@ public final class User {
             Instant lastLoginAt,
             Instant createdAt,
             Instant updatedAt,
-            long version
-    ) {
+            long version) {
         return new User(
                 id,
                 tenantId,
@@ -116,8 +111,7 @@ public final class User {
                 lastLoginAt,
                 createdAt,
                 updatedAt,
-                version
-        );
+                version);
     }
 
     public UserId id() {
@@ -199,10 +193,7 @@ public final class User {
     }
 
     public void recordLogin(Instant loginAt) {
-        this.lastLoginAt = Objects.requireNonNull(
-                loginAt,
-                "Login time cannot be null"
-        );
+        this.lastLoginAt = Objects.requireNonNull(loginAt, "Login time cannot be null");
         touch();
     }
 

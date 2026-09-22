@@ -7,6 +7,7 @@ com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.
 com/logistics/identity/domain/repository/RoleRepository.class
 com/logistics/identity/infrastructure/persistence/entity/PermissionEntity.class
 com/logistics/identity/infrastructure/persistence/repository/UserJpaRepository.class
+com/logistics/identity/domain/entity/UserSession.class
 com/logistics/identity/domain/repository/UserRepository.class
 com/logistics/identity/infrastructure/persistence/repository/RolePermissionJpaRepository.class
 com/logistics/identity/infrastructure/persistence/repository/RoleJpaRepository.class

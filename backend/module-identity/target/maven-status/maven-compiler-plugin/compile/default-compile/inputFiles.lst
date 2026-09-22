@@ -2,6 +2,7 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/Role.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/Tenant.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/User.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/UserSession.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/PermissionRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/RoleRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/TenantRepository.java

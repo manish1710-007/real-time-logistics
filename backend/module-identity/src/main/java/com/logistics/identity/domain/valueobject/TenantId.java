@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public record TenantId(UUID value) {
     public TenantId {
-        if (value == null ) {
+        if (value == null) {
             throw new IllegalArgumentException("Tenant ID cannot be null");
         }
     }

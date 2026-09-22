@@ -1,7 +1,6 @@
 package com.logistics.identity.infrastructure.persistence.entity;
 
 import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -19,19 +18,12 @@ public class RolePermissionEntity {
     @Column(name = "permission_id", nullable = false)
     private UUID permissionId;
 
-    protected RolePermissionEntity() {
-    }
+    protected RolePermissionEntity() {}
 
     public RolePermissionEntity(UUID roleId, UUID permissionId) {
-        this.roleId = Objects.requireNonNull(
-                roleId,
-                "Role ID cannot be null"
-        );
+        this.roleId = Objects.requireNonNull(roleId, "Role ID cannot be null");
 
-        this.permissionId = Objects.requireNonNull(
-                permissionId,
-                "Permission ID cannot be null"
-        );
+        this.permissionId = Objects.requireNonNull(permissionId, "Permission ID cannot be null");
     }
 
     public UUID getRoleId() {
@@ -47,8 +39,7 @@ public class RolePermissionEntity {
         private UUID roleId;
         private UUID permissionId;
 
-        public RolePermissionId() {
-        }
+        public RolePermissionId() {}
 
         public RolePermissionId(UUID roleId, UUID permissionId) {
             this.roleId = roleId;
@@ -73,8 +64,7 @@ public class RolePermissionEntity {
                 return false;
             }
 
-            return Objects.equals(roleId, that.roleId)
-                    && Objects.equals(permissionId, that.permissionId);
+            return Objects.equals(roleId, that.roleId) && Objects.equals(permissionId, that.permissionId);
         }
 
         @Override
