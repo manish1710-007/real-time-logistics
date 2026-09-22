@@ -25,6 +25,7 @@ src/main/java/com/logistics/identity/infrastructure/persistence/mapper/Permissio
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.java 2026-09-22T10:58:46.112923145Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/TenantMapper.java 2026-09-22T10:58:46.207920880Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/UserMapper.java 2026-09-22T10:58:46.327918018Z
+src/main/java/com/logistics/identity/infrastructure/persistence/mapper/UserSessionMapper.java 2026-09-22T15:06:43.227067716Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.java 2026-09-22T10:58:45.598935421Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/PermissionRepositoryImpl.java 2026-09-22T10:58:45.941927225Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/RoleJpaRepository.java 2026-09-22T10:58:45.679933485Z

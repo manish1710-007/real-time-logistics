@@ -16,3 +16,4 @@ com/logistics/identity/infrastructure/persistence/repository/PermissionRepositor
 com/logistics/identity/infrastructure/persistence/entity/RolePermissionEntity.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.class
 com/logistics/identity/domain/repository/PermissionRepository.class
+com/logistics/identity/infrastructure/persistence/mapper/UserSessionMapper.class
