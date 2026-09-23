@@ -38,6 +38,10 @@
         <checkstyle-plugin.version>3.4.0</checkstyle-plugin.version>
         <pmd-plugin.version>3.23.0</pmd-plugin.version>
         <spotbugs-plugin.version>4.8.6.2</spotbugs-plugin.version>
+
+        <!--Argon2id-->
+        <argon2-jvm.version>2.12</argon2-jvm.version>
+
     </properties>
 
     <modules>
@@ -153,6 +157,14 @@
                 <artifactId>module-analytics</artifactId>
                 <version>${project.version}</version>
             </dependency>
+
+            <!--Argon2id-->
+            <dependency>
+                <groupId>de.mkammerer</groupId>
+                <artifactId>argon2-jvm</artifactId>
+                <version>${argon2-jvm.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

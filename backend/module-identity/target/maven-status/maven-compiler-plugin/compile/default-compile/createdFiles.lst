@@ -26,4 +26,5 @@ com/logistics/identity/infrastructure/persistence/repository/RolePermissionJpaRe
 com/logistics/identity/infrastructure/persistence/repository/PermissionRepositoryImpl.class
 com/logistics/identity/domain/entity/RefreshToken.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.class
+com/logistics/identity/infrastructure/password/Argon2idPasswordHasher.class
 com/logistics/identity/infrastructure/persistence/mapper/UserSessionMapper.class

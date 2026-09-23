@@ -48,6 +48,10 @@
             <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>de.mkammerer</groupId>
+            <artifactId>argon2-jvm</artifactId>
+        </dependency>
 
     </dependencies>
 
