@@ -11,6 +11,7 @@ src/main/java/com/logistics/identity/domain/repository/RoleRepository.java 2026-
 src/main/java/com/logistics/identity/domain/repository/TenantRepository.java 2026-09-22T10:58:47.602887642Z
 src/main/java/com/logistics/identity/domain/repository/UserRepository.java 2026-09-22T10:58:47.525889474Z
 src/main/java/com/logistics/identity/domain/repository/UserSessionRepository.java 2026-09-22T20:23:23.742283040Z
+src/main/java/com/logistics/identity/domain/service/PasswordHasher.java 2026-09-23T11:57:28.340833097Z
 src/main/java/com/logistics/identity/domain/valueobject/PermissionId.java 2026-09-22T10:58:46.742908122Z
 src/main/java/com/logistics/identity/domain/valueobject/RoleId.java 2026-09-22T10:58:46.503913821Z
 src/main/java/com/logistics/identity/domain/valueobject/RoleType.java 2026-09-14T12:24:33.277850397Z
