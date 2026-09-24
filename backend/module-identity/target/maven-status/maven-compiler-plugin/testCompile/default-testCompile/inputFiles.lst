@@ -1,3 +1,4 @@
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/application/command/AuthenticateUserCommandTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/domain/entity/RefreshTokenTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/domain/entity/RoleTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/domain/entity/TenantTest.java
