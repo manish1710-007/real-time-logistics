@@ -12,6 +12,7 @@ src/main/java/com/logistics/identity/domain/repository/TenantRepository.java 202
 src/main/java/com/logistics/identity/domain/repository/UserRepository.java 2026-09-22T10:58:47.525889474Z
 src/main/java/com/logistics/identity/domain/repository/UserSessionRepository.java 2026-09-22T20:23:23.742283040Z
 src/main/java/com/logistics/identity/domain/service/PasswordHasher.java 2026-09-23T12:57:07.296924105Z
+src/main/java/com/logistics/identity/domain/service/PasswordPolicy.java 2026-09-24T12:47:51.444088078Z
 src/main/java/com/logistics/identity/domain/valueobject/PermissionId.java 2026-09-22T10:58:46.742908122Z
 src/main/java/com/logistics/identity/domain/valueobject/RoleId.java 2026-09-22T10:58:46.503913821Z
 src/main/java/com/logistics/identity/domain/valueobject/RoleType.java 2026-09-14T12:24:33.277850397Z
@@ -51,4 +52,5 @@ src/test/java/com/logistics/identity/domain/entity/RoleTest.java 2026-09-22T10:5
 src/test/java/com/logistics/identity/domain/entity/TenantTest.java 2026-09-22T10:58:40.015069527Z
 src/test/java/com/logistics/identity/domain/entity/UserSessionTest.java 2026-09-22T11:04:29.445928137Z
 src/test/java/com/logistics/identity/domain/entity/UserTest.java 2026-09-22T10:58:40.720052520Z
+src/test/java/com/logistics/identity/domain/service/PasswordPolicyTest.java 2026-09-24T12:43:35.814609062Z
 src/test/java/com/logistics/identity/infrastructure/password/Argon2idPasswordHasherTest.java 2026-09-23T13:20:44.533375577Z
