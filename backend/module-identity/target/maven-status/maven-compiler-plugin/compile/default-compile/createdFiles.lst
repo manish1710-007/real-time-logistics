@@ -15,6 +15,7 @@ com/logistics/identity/infrastructure/persistence/repository/UserSessionJpaRepos
 com/logistics/identity/infrastructure/persistence/entity/RolePermissionEntity$RolePermissionId.class
 com/logistics/identity/infrastructure/persistence/mapper/PermissionMapper.class
 com/logistics/identity/infrastructure/persistence/entity/RoleEntity.class
+com/logistics/identity/application/service/AuthenticationServiceImpl$1.class
 com/logistics/identity/infrastructure/persistence/repository/RoleRepositoryImpl.class
 com/logistics/identity/domain/repository/RefreshTokenRepository.class
 com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.class
@@ -27,6 +28,7 @@ com/logistics/identity/domain/entity/UserSession.class
 com/logistics/identity/domain/repository/UserRepository.class
 com/logistics/identity/application/service/AuthenticationResult.class
 com/logistics/identity/infrastructure/persistence/repository/RolePermissionJpaRepository.class
+com/logistics/identity/application/service/AuthenticationServiceImpl.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionRepositoryImpl.class
 com/logistics/identity/domain/entity/RefreshToken.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.class

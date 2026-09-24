@@ -1,7 +1,8 @@
 AZf+UeXGoUU2Xas3n0Lw1pSmvAFNqfA9CtKyZpWInPU=
-src/main/java/com/logistics/identity/application/command/AuthenticateUserCommand.java 2026-09-24T13:52:03.793288678Z
+src/main/java/com/logistics/identity/application/command/AuthenticateUserCommand.java 2026-09-24T13:56:16.210579113Z
 src/main/java/com/logistics/identity/application/service/AuthenticationResult.java 2026-09-24T13:52:03.837288654Z
 src/main/java/com/logistics/identity/application/service/AuthenticationService.java 2026-09-24T13:52:03.897288621Z
+src/main/java/com/logistics/identity/application/service/AuthenticationServiceImpl.java 2026-09-24T21:04:57.821918563Z
 src/main/java/com/logistics/identity/domain/entity/Permission.java 2026-09-22T10:58:47.434891640Z
 src/main/java/com/logistics/identity/domain/entity/RefreshToken.java 2026-09-22T20:30:18.025624016Z
 src/main/java/com/logistics/identity/domain/entity/Role.java 2026-09-22T10:58:47.088899875Z
@@ -50,7 +51,8 @@ src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserJ
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.java 2026-09-22T10:58:44.154969960Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionJpaRepository.java 2026-09-22T20:18:03.434532445Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java 2026-09-22T20:23:23.580280053Z
-src/test/java/com/logistics/identity/application/command/AuthenticateUserCommandTest.java 2026-09-24T13:52:03.718288719Z
+src/test/java/com/logistics/identity/application/command/AuthenticateUserCommandTest.java 2026-09-24T20:15:25.154370513Z
+src/test/java/com/logistics/identity/application/service/AuthenticationServiceImplTest.java 2026-09-24T21:04:57.592917519Z
 src/test/java/com/logistics/identity/domain/entity/RefreshTokenTest.java 2026-09-22T20:39:06.871273129Z
 src/test/java/com/logistics/identity/domain/entity/RoleTest.java 2026-09-22T10:58:39.597079630Z
 src/test/java/com/logistics/identity/domain/entity/TenantTest.java 2026-09-22T10:58:40.015069527Z

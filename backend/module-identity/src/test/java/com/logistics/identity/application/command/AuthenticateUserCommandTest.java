@@ -13,11 +13,7 @@ class AuthenticateUserCommandTest {
         TenantId tenantId = new TenantId(UUID.randomUUID());
 
         AuthenticateUserCommand command =
-                new AuthenticateUserCommand(
-                        tenantId,
-                        "  USER@EXAMPLE.COM  ",
-                        "SecurePassword123!"
-                );
+                new AuthenticateUserCommand(tenantId, "  USER@EXAMPLE.COM  ", "SecurePassword123!");
 
         assertEquals(tenantId, command.tenantId());
         assertEquals("user@example.com", command.email());
@@ -28,35 +24,20 @@ class AuthenticateUserCommandTest {
     void shouldRejectNullTenantId() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> new AuthenticateUserCommand(
-                        null,
-                        "user@example.com",
-                        "password"
-                )
-        );
+                () -> new AuthenticateUserCommand(null, "user@example.com", "password"));
     }
 
     @Test
     void shouldRejectBlankEmail() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> new AuthenticateUserCommand(
-                        new TenantId(UUID.randomUUID()),
-                        "   ",
-                        "password"
-                )
-        );
+                () -> new AuthenticateUserCommand(new TenantId(UUID.randomUUID()), "   ", "password"));
     }
 
     @Test
     void shouldRejectBlankPassword() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> new AuthenticateUserCommand(
-                        new TenantId(UUID.randomUUID()),
-                        "user@example.com",
-                        "   "
-                )
-        );
+                () -> new AuthenticateUserCommand(new TenantId(UUID.randomUUID()), "user@example.com", "   "));
     }
 }
