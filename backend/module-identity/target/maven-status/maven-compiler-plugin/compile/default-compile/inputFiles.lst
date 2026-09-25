@@ -7,12 +7,14 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/Role.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/Tenant.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/User.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/UserRole.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/entity/UserSession.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/PermissionRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/RefreshTokenRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/RoleRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/TenantRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/UserRepository.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/UserRoleRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/repository/UserSessionRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/service/PasswordHasher.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/service/PasswordPolicy.java

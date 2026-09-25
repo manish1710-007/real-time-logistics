@@ -8,12 +8,14 @@ src/main/java/com/logistics/identity/domain/entity/RefreshToken.java 2026-09-22T
 src/main/java/com/logistics/identity/domain/entity/Role.java 2026-09-22T10:58:47.088899875Z
 src/main/java/com/logistics/identity/domain/entity/Tenant.java 2026-09-22T10:58:47.205897091Z
 src/main/java/com/logistics/identity/domain/entity/User.java 2026-09-22T10:58:47.356893497Z
+src/main/java/com/logistics/identity/domain/entity/UserRole.java 2026-09-25T18:16:18.808263822Z
 src/main/java/com/logistics/identity/domain/entity/UserSession.java 2026-09-22T10:58:47.505889950Z
 src/main/java/com/logistics/identity/domain/repository/PermissionRepository.java 2026-09-22T10:58:47.545888998Z
 src/main/java/com/logistics/identity/domain/repository/RefreshTokenRepository.java 2026-09-22T20:39:07.444271647Z
 src/main/java/com/logistics/identity/domain/repository/RoleRepository.java 2026-09-22T10:58:47.565888522Z
 src/main/java/com/logistics/identity/domain/repository/TenantRepository.java 2026-09-22T10:58:47.602887642Z
 src/main/java/com/logistics/identity/domain/repository/UserRepository.java 2026-09-22T10:58:47.525889474Z
+src/main/java/com/logistics/identity/domain/repository/UserRoleRepository.java 2026-09-25T18:16:19.252301183Z
 src/main/java/com/logistics/identity/domain/repository/UserSessionRepository.java 2026-09-22T20:23:23.742283040Z
 src/main/java/com/logistics/identity/domain/service/PasswordHasher.java 2026-09-23T12:57:07.296924105Z
 src/main/java/com/logistics/identity/domain/service/PasswordPolicy.java 2026-09-24T12:47:51.444088078Z
@@ -56,6 +58,7 @@ src/test/java/com/logistics/identity/application/service/AuthenticationServiceIm
 src/test/java/com/logistics/identity/domain/entity/RefreshTokenTest.java 2026-09-22T20:39:06.871273129Z
 src/test/java/com/logistics/identity/domain/entity/RoleTest.java 2026-09-22T10:58:39.597079630Z
 src/test/java/com/logistics/identity/domain/entity/TenantTest.java 2026-09-22T10:58:40.015069527Z
+src/test/java/com/logistics/identity/domain/entity/UserRoleTest.java 2026-09-25T18:16:18.554242379Z
 src/test/java/com/logistics/identity/domain/entity/UserSessionTest.java 2026-09-22T11:04:29.445928137Z
 src/test/java/com/logistics/identity/domain/entity/UserTest.java 2026-09-22T10:58:40.720052520Z
 src/test/java/com/logistics/identity/domain/service/PasswordPolicyTest.java 2026-09-24T12:43:35.814609062Z
