@@ -4,6 +4,7 @@ com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaReposito
 com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.class
 com/logistics/identity/infrastructure/persistence/entity/UserSessionEntity.class
 com/logistics/identity/domain/service/PasswordHasher.class
+com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImpl.class
 com/logistics/identity/domain/repository/UserSessionRepository.class
 com/logistics/identity/application/command/AuthenticateUserCommand.class
 com/logistics/identity/infrastructure/persistence/repository/RefreshTokenJpaRepository.class

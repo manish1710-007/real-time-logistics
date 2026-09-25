@@ -54,6 +54,7 @@ src/main/java/com/logistics/identity/infrastructure/persistence/repository/Tenan
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserJpaRepository.java 2026-09-22T10:58:45.767931383Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.java 2026-09-22T10:58:44.154969960Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaRepository.java 2026-09-25T19:40:06.064586550Z
+src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImpl.java 2026-09-25T19:47:17.622505913Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionJpaRepository.java 2026-09-22T20:18:03.434532445Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java 2026-09-22T20:23:23.580280053Z
 src/test/java/com/logistics/identity/application/command/AuthenticateUserCommandTest.java 2026-09-24T20:15:25.154370513Z
