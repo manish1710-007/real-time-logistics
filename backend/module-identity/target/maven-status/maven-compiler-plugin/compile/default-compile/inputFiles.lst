@@ -52,5 +52,6 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/TenantRepositoryImpl.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserJpaRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionJpaRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java
