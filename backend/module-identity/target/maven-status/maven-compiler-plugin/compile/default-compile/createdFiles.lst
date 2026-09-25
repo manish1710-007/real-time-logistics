@@ -7,6 +7,7 @@ com/logistics/identity/domain/repository/UserSessionRepository.class
 com/logistics/identity/application/command/AuthenticateUserCommand.class
 com/logistics/identity/infrastructure/persistence/repository/RefreshTokenJpaRepository.class
 com/logistics/identity/infrastructure/persistence/entity/RefreshTokenEntity.class
+com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity.class
 com/logistics/identity/application/service/AuthenticationService.class
 com/logistics/identity/infrastructure/persistence/repository/RoleJpaRepository.class
 com/logistics/identity/domain/entity/UserRole.class
@@ -19,6 +20,7 @@ com/logistics/identity/infrastructure/persistence/entity/RoleEntity.class
 com/logistics/identity/application/service/AuthenticationServiceImpl$1.class
 com/logistics/identity/infrastructure/persistence/repository/RoleRepositoryImpl.class
 com/logistics/identity/domain/repository/RefreshTokenRepository.class
+com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity$UserRoleId.class
 com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.class
 com/logistics/identity/domain/repository/RoleRepository.class
 com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.class

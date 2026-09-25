@@ -32,6 +32,7 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/RolePermissionEntity.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/TenantEntity.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/UserEntity.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/UserSessionEntity.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/mapper/PermissionMapper.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/mapper/RefreshTokenMapper.java
