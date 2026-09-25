@@ -19,6 +19,7 @@ com/logistics/identity/infrastructure/persistence/mapper/PermissionMapper.class
 com/logistics/identity/infrastructure/persistence/entity/RoleEntity.class
 com/logistics/identity/application/service/AuthenticationServiceImpl$1.class
 com/logistics/identity/infrastructure/persistence/repository/RoleRepositoryImpl.class
+com/logistics/identity/infrastructure/persistence/mapper/UserRoleMapper.class
 com/logistics/identity/domain/repository/RefreshTokenRepository.class
 com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity$UserRoleId.class
 com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.class

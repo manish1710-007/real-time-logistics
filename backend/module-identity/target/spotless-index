@@ -33,13 +33,14 @@ src/main/java/com/logistics/identity/infrastructure/persistence/entity/RoleEntit
 src/main/java/com/logistics/identity/infrastructure/persistence/entity/RolePermissionEntity.java 2026-09-22T10:58:42.531008927Z
 src/main/java/com/logistics/identity/infrastructure/persistence/entity/TenantEntity.java 2026-09-22T10:58:41.242039938Z
 src/main/java/com/logistics/identity/infrastructure/persistence/entity/UserEntity.java 2026-09-22T10:58:43.057996265Z
-src/main/java/com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity.java 2026-09-25T19:12:33.433864920Z
+src/main/java/com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity.java 2026-09-25T19:14:21.269795462Z
 src/main/java/com/logistics/identity/infrastructure/persistence/entity/UserSessionEntity.java 2026-09-22T11:21:37.595294151Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/PermissionMapper.java 2026-09-22T10:58:46.432915514Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/RefreshTokenMapper.java 2026-09-22T20:39:07.365271850Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.java 2026-09-22T10:58:46.112923145Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/TenantMapper.java 2026-09-22T10:58:46.207920880Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/UserMapper.java 2026-09-22T10:58:46.327918018Z
+src/main/java/com/logistics/identity/infrastructure/persistence/mapper/UserRoleMapper.java 2026-09-25T19:22:16.712075292Z
 src/main/java/com/logistics/identity/infrastructure/persistence/mapper/UserSessionMapper.java 2026-09-22T15:07:42.084625172Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.java 2026-09-22T10:58:45.598935421Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/PermissionRepositoryImpl.java 2026-09-22T10:58:45.941927225Z
