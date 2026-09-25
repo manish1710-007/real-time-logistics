@@ -58,7 +58,7 @@ src/test/java/com/logistics/identity/application/service/AuthenticationServiceIm
 src/test/java/com/logistics/identity/domain/entity/RefreshTokenTest.java 2026-09-22T20:39:06.871273129Z
 src/test/java/com/logistics/identity/domain/entity/RoleTest.java 2026-09-22T10:58:39.597079630Z
 src/test/java/com/logistics/identity/domain/entity/TenantTest.java 2026-09-22T10:58:40.015069527Z
-src/test/java/com/logistics/identity/domain/entity/UserRoleTest.java 2026-09-25T18:16:18.554242379Z
+src/test/java/com/logistics/identity/domain/entity/UserRoleTest.java 2026-09-25T18:37:37.574072742Z
 src/test/java/com/logistics/identity/domain/entity/UserSessionTest.java 2026-09-22T11:04:29.445928137Z
 src/test/java/com/logistics/identity/domain/entity/UserTest.java 2026-09-22T10:58:40.720052520Z
 src/test/java/com/logistics/identity/domain/service/PasswordPolicyTest.java 2026-09-24T12:43:35.814609062Z
