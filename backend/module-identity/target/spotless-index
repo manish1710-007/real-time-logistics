@@ -67,3 +67,4 @@ src/test/java/com/logistics/identity/domain/entity/UserSessionTest.java 2026-09-
 src/test/java/com/logistics/identity/domain/entity/UserTest.java 2026-09-22T10:58:40.720052520Z
 src/test/java/com/logistics/identity/domain/service/PasswordPolicyTest.java 2026-09-24T12:43:35.814609062Z
 src/test/java/com/logistics/identity/infrastructure/password/Argon2idPasswordHasherTest.java 2026-09-23T13:20:44.533375577Z
+src/test/java/com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImplTest.java 2026-09-26T19:29:14.617643822Z

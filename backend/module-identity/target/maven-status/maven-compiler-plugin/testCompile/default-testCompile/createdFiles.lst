@@ -6,4 +6,5 @@ com/logistics/identity/domain/entity/TenantTest.class
 com/logistics/identity/domain/entity/RefreshTokenTest.class
 com/logistics/identity/application/command/AuthenticateUserCommandTest.class
 com/logistics/identity/domain/service/PasswordPolicyTest.class
+com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImplTest.class
 com/logistics/identity/domain/entity/UserTest.class
