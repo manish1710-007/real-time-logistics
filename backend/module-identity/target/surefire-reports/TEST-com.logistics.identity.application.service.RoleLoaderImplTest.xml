@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.infrastructure.persistence.repository.UserRoleRepositoryImplTest" time="3.387" tests="5" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.application.service.RoleLoaderImplTest" time="0.606" tests="3" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -57,16 +57,7 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldReturnTrueWhenUserHasRole" classname="com.logistics.identity.infrastructure.persistence.repository.UserRoleRepositoryImplTest" time="3.237">
-    <system-err><![CDATA[Mockito is currently self-attaching to enable the inline-mock-maker. This will no longer work in future releases of the JDK. Please add Mockito as an agent to your build as described in Mockito's documentation: https://javadoc.io/doc/org.mockito/mockito-core/latest/org.mockito/org/mockito/Mockito.html#0.3
-WARNING: A Java agent has been loaded dynamically (/home/neo1710/.m2/repository/net/bytebuddy/byte-buddy-agent/1.17.5/byte-buddy-agent-1.17.5.jar)
-WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
-WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
-WARNING: Dynamic loading of agents will be disallowed by default in a future release
-]]></system-err>
-  </testcase>
-  <testcase name="shouldReturnFalseWhenUserDoesNotHaveRole" classname="com.logistics.identity.infrastructure.persistence.repository.UserRoleRepositoryImplTest" time="0.015"/>
-  <testcase name="shouldFindRoleIdsByUserId" classname="com.logistics.identity.infrastructure.persistence.repository.UserRoleRepositoryImplTest" time="0.057"/>
-  <testcase name="shouldDeleteUserRole" classname="com.logistics.identity.infrastructure.persistence.repository.UserRoleRepositoryImplTest" time="0.025"/>
-  <testcase name="shouldSaveUserRole" classname="com.logistics.identity.infrastructure.persistence.repository.UserRoleRepositoryImplTest" time="0.032"/>
+  <testcase name="shouldLoadRolesForUser" classname="com.logistics.identity.application.service.RoleLoaderImplTest" time="0.576"/>
+  <testcase name="shouldSkipMissingRoles" classname="com.logistics.identity.application.service.RoleLoaderImplTest" time="0.008"/>
+  <testcase name="shouldReturnEmptyListWhenUserHasNoRoles" classname="com.logistics.identity.application.service.RoleLoaderImplTest" time="0.007"/>
 </testsuite>
