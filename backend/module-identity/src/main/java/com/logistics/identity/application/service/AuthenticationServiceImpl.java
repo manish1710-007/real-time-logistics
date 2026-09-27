@@ -17,12 +17,17 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordHasher passwordHasher;
 
     private final TenantRepository tenantRepository;
+    private final RoleLoader roleLoader;
 
     public AuthenticationServiceImpl(
-            UserRepository userRepository, PasswordHasher passwordHasher, TenantRepository tenantRepository) {
+            UserRepository userRepository,
+            PasswordHasher passwordHasher,
+            TenantRepository tenantRepository,
+            RoleLoader roleLoader) {
         this.userRepository = userRepository;
         this.passwordHasher = passwordHasher;
         this.tenantRepository = tenantRepository;
+        this.roleLoader = roleLoader;
     }
 
     @Override

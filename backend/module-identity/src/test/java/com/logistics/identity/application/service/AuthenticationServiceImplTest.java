@@ -33,11 +33,15 @@ class AuthenticationServiceImplTest {
     @Mock
     private PasswordHasher passwordHasher;
 
+    @Mock
+    private RoleLoader roleLoader;
+
     private AuthenticationServiceImpl authenticationService;
 
     @BeforeEach
     void setUp() {
-        authenticationService = new AuthenticationServiceImpl(userRepository, passwordHasher, tenantRepository);
+        authenticationService =
+                new AuthenticationServiceImpl(userRepository, passwordHasher, tenantRepository, roleLoader);
     }
 
     @Test
