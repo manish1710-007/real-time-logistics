@@ -37,6 +37,7 @@ com/logistics/identity/domain/repository/UserRepository.class
 com/logistics/identity/application/service/AuthenticationResult.class
 com/logistics/identity/infrastructure/persistence/repository/RolePermissionJpaRepository.class
 com/logistics/identity/application/service/AuthenticationServiceImpl.class
+com/logistics/identity/application/service/RoleLoaderImpl.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionRepositoryImpl.class
 com/logistics/identity/domain/entity/RefreshToken.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.class
