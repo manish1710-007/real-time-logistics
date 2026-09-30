@@ -1,11 +1,14 @@
 package com.logistics.identity.application.service;
 
 import com.logistics.identity.application.command.AuthenticateUserCommand;
+import com.logistics.identity.domain.entity.Role;
+import com.logistics.identity.domain.entity.Tenant;
 import com.logistics.identity.domain.entity.User;
 import com.logistics.identity.domain.repository.TenantRepository;
 import com.logistics.identity.domain.repository.UserRepository;
 import com.logistics.identity.domain.service.PasswordHasher;
 import com.logistics.identity.domain.valueobject.TenantStatus;
+import java.util.List;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,7 +18,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     private final UserRepository userRepository;
     private final PasswordHasher passwordHasher;
-
     private final TenantRepository tenantRepository;
     private final RoleLoader roleLoader;
 
@@ -42,10 +44,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             throw new IllegalArgumentException(AUTHENTICATION_FAILED);
         }
 
-        tenantRepository
+        Tenant tenant = tenantRepository
                 .findById(command.tenantId())
-                .filter(tenant -> tenant.status() == TenantStatus.ACTIVE)
+                .filter(t -> t.status() == TenantStatus.ACTIVE)
                 .orElseThrow(() -> new IllegalArgumentException(AUTHENTICATION_FAILED));
+
+        List<Role> roles = roleLoader.loadRole(user.id());
 
         throw new UnsupportedOperationException("Authentication token generation is not implemented yet");
     }
@@ -55,6 +59,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             case INVITED, ACTIVE -> {
                 // Authentication may proceed.
             }
+
             case SUSPENDED, LOCKED, DISABLED, DELETED -> throw new IllegalArgumentException(AUTHENTICATION_FAILED);
         }
     }

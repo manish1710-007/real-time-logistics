@@ -2,7 +2,7 @@ AZf+UeXGoUU2Xas3n0Lw1pSmvAFNqfA9CtKyZpWInPU=
 src/main/java/com/logistics/identity/application/command/AuthenticateUserCommand.java 2026-09-24T13:56:16.210579113Z
 src/main/java/com/logistics/identity/application/service/AuthenticationResult.java 2026-09-24T13:52:03.837288654Z
 src/main/java/com/logistics/identity/application/service/AuthenticationService.java 2026-09-24T13:52:03.897288621Z
-src/main/java/com/logistics/identity/application/service/AuthenticationServiceImpl.java 2026-09-27T11:19:19.918296870Z
+src/main/java/com/logistics/identity/application/service/AuthenticationServiceImpl.java 2026-09-30T10:39:39.725474991Z
 src/main/java/com/logistics/identity/application/service/RoleLoader.java 2026-09-26T19:46:03.926046592Z
 src/main/java/com/logistics/identity/application/service/RoleLoaderImpl.java 2026-09-27T10:57:08.732996894Z
 src/main/java/com/logistics/identity/domain/entity/Permission.java 2026-09-22T10:58:47.434891640Z
