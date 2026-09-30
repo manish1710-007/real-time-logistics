@@ -1,19 +1,27 @@
 package com.logistics.identity.application.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import com.logistics.identity.application.command.AuthenticateUserCommand;
+import com.logistics.identity.domain.entity.Role;
 import com.logistics.identity.domain.entity.Tenant;
 import com.logistics.identity.domain.entity.User;
 import com.logistics.identity.domain.repository.TenantRepository;
 import com.logistics.identity.domain.repository.UserRepository;
 import com.logistics.identity.domain.service.PasswordHasher;
+import com.logistics.identity.domain.valueobject.RoleType;
+import com.logistics.identity.domain.valueobject.RoleId;
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.TenantStatus;
 import com.logistics.identity.domain.valueobject.UserId;
 import java.time.Instant;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -165,6 +173,37 @@ class AuthenticationServiceImplTest {
                 assertThrows(IllegalArgumentException.class, () -> authenticationService.authenticate(command));
 
         assertEquals("Invalid email or password", exception.getMessage());
+    }
+
+    @Test
+    void shouldLoadUserRolesAfterSuccessfulCredentialAndTenantValidation() {
+        TenantId tenantId = new TenantId(UUID.randomUUID());
+
+        User user = createActiveUser(tenantId);
+
+        AuthenticateUserCommand command =
+                new AuthenticateUserCommand(tenantId, "user@example.com", "SecurePassword123!");
+
+        RoleId roleId = new RoleId(UUID.randomUUID());
+
+        Role role =
+                Role.reconstitute(roleId, tenantId, "ADMIN", RoleType.TENANT, Set.of(), Instant.now(), Instant.now());
+
+        Tenant tenant = Tenant.reconstitute(
+                tenantId, "Test Tenant", "test-tenant", TenantStatus.ACTIVE, Instant.now(), Instant.now());
+
+        when(userRepository.findByTenantIdAndEmail(tenantId, "user@example.com"))
+                .thenReturn(Optional.of(user));
+
+        when(passwordHasher.matches("SecurePassword123!", user.passwordHash())).thenReturn(true);
+
+        when(tenantRepository.findById(tenantId)).thenReturn(Optional.of(tenant));
+
+        when(roleLoader.loadRole(user.id())).thenReturn(List.of(role));
+
+        assertThrows(UnsupportedOperationException.class, () -> authenticationService.authenticate(command));
+
+        verify(roleLoader).loadRole(user.id());
     }
 
     private User createActiveUser(TenantId tenantId) {
