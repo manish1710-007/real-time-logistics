@@ -63,6 +63,7 @@ src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserS
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java 2026-09-22T20:23:23.580280053Z
 src/test/java/com/logistics/identity/application/command/AuthenticateUserCommandTest.java 2026-09-24T20:15:25.154370513Z
 src/test/java/com/logistics/identity/application/service/AuthenticationServiceImplTest.java 2026-09-30T11:33:16.989984887Z
+src/test/java/com/logistics/identity/application/service/PermissionLoaderImplTest.java 2026-09-30T20:49:10.680629379Z
 src/test/java/com/logistics/identity/application/service/RoleLoaderImplTest.java 2026-09-27T11:02:11.836957276Z
 src/test/java/com/logistics/identity/domain/entity/RefreshTokenTest.java 2026-09-22T20:39:06.871273129Z
 src/test/java/com/logistics/identity/domain/entity/RoleTest.java 2026-09-22T10:58:39.597079630Z
