@@ -22,6 +22,14 @@ public class RefreshTokenRepositoryImpl implements RefreshTokenRepository {
 
     @Override
     @Transactional
+    public Optional<RefreshToken> findByTokenHashForUpdate(String tokenHash) {
+        validateTokenHash(tokenHash);
+
+        return refreshTokenJpaRepository.findByTokenHashForUpdate(tokenHash).map(RefreshTokenMapper::toDomain);
+    }
+
+    @Override
+    @Transactional
     public RefreshToken save(RefreshToken refreshToken) {
         if (refreshToken == null) {
             throw new IllegalArgumentException("Refresh token cannot be null");

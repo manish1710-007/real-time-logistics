@@ -12,6 +12,8 @@ public interface RefreshTokenRepository {
 
     Optional<RefreshToken> findById(UUID refreshTokenId);
 
+    Optional<RefreshToken> findByTokenHashForUpdate(String tokenHash);
+
     Optional<RefreshToken> findByTokenHash(String tokenHash);
 
     List<RefreshToken> findBySessionId(UUID sessionId);
