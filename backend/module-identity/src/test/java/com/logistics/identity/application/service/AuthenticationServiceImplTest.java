@@ -44,12 +44,15 @@ class AuthenticationServiceImplTest {
     @Mock
     private RoleLoader roleLoader;
 
+    @Mock
+    private PermissionLoader permissionLoader;
+
     private AuthenticationServiceImpl authenticationService;
 
     @BeforeEach
     void setUp() {
-        authenticationService =
-                new AuthenticationServiceImpl(userRepository, passwordHasher, tenantRepository, roleLoader);
+        authenticationService = new AuthenticationServiceImpl(
+                userRepository, passwordHasher, tenantRepository, roleLoader, permissionLoader);
     }
 
     @Test

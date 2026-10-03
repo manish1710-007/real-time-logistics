@@ -61,7 +61,8 @@ class PermissionLoaderImplTest {
 
         List<Permission> result = permissionLoader.loadPermissions(List.of(role));
 
-        assertEquals(List.of(permission1, permission2), result);
+        assertEquals(2, result.size());
+        assertEquals(Set.of(permission1, permission2), Set.copyOf(result));
 
         verify(permissionRepository).findById(permissionId1);
 

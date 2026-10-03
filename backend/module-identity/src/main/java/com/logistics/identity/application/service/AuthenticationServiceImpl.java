@@ -20,16 +20,19 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final PasswordHasher passwordHasher;
     private final TenantRepository tenantRepository;
     private final RoleLoader roleLoader;
+    private final PermissionLoader permissionLoader;
 
     public AuthenticationServiceImpl(
             UserRepository userRepository,
             PasswordHasher passwordHasher,
             TenantRepository tenantRepository,
-            RoleLoader roleLoader) {
+            RoleLoader roleLoader,
+            PermissionLoader permissionLoader) {
         this.userRepository = userRepository;
         this.passwordHasher = passwordHasher;
         this.tenantRepository = tenantRepository;
         this.roleLoader = roleLoader;
+        this.permissionLoader = permissionLoader;
     }
 
     @Override
@@ -50,6 +53,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .orElseThrow(() -> new IllegalArgumentException(AUTHENTICATION_FAILED));
 
         List<Role> roles = roleLoader.loadRole(user.id());
+        var permissions = permissionLoader.loadPermissions(roles);
 
         throw new UnsupportedOperationException("Authentication token generation is not implemented yet");
     }
