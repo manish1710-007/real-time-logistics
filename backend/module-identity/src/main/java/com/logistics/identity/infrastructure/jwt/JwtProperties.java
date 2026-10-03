@@ -19,6 +19,10 @@ public class JwtProperties {
         this.issuer = issuer;
     }
 
+    public String getAudience() {
+        return audience;
+    }
+
     public void setAudience(String audience) {
         this.audience = audience;
     }

@@ -3,6 +3,7 @@ com/logistics/identity/infrastructure/jwt/JwtProperties.class
 com/logistics/identity/domain/service/PasswordPolicy.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaRepository.class
 com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.class
+com/logistics/identity/infrastructure/jwt/JwtConfiguration.class
 com/logistics/identity/infrastructure/persistence/entity/UserSessionEntity.class
 com/logistics/identity/domain/service/PasswordHasher.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImpl.class
@@ -11,6 +12,7 @@ com/logistics/identity/application/command/AuthenticateUserCommand.class
 com/logistics/identity/application/service/PermissionLoaderImpl.class
 com/logistics/identity/infrastructure/persistence/repository/RefreshTokenJpaRepository.class
 com/logistics/identity/infrastructure/persistence/entity/RefreshTokenEntity.class
+com/logistics/identity/infrastructure/jwt/JwtPropertiesValidator.class
 com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity.class
 com/logistics/identity/application/service/AuthenticationService.class
 com/logistics/identity/infrastructure/persistence/repository/RoleJpaRepository.class

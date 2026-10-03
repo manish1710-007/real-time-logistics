@@ -29,7 +29,9 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/valueobject/TenantStatus.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/valueobject/UserId.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/domain/valueobject/UserStatus.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/jwt/JwtConfiguration.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/jwt/JwtProperties.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/jwt/JwtPropertiesValidator.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/password/Argon2idPasswordHasher.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/PermissionEntity.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/entity/RefreshTokenEntity.java
