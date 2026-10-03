@@ -1,4 +1,5 @@
 com/logistics/identity/infrastructure/persistence/repository/RefreshTokenRepositoryImpl.class
+com/logistics/identity/infrastructure/jwt/JwtProperties.class
 com/logistics/identity/domain/service/PasswordPolicy.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaRepository.class
 com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.class

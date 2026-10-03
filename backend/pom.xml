@@ -45,6 +45,9 @@
         <!--mockito-->
         <mockito.version>5.17.0</mockito.version>
 
+        <!-- JJWT   -->
+        <jjwt.version>0.12.6</jjwt.version>
+
     </properties>
 
     <modules>
@@ -180,6 +183,23 @@
                 <artifactId>mockito-junit-jupiter</artifactId>
                 <version>${mockito.version}</version>
             </dependency>
+
+            <!-- JWT -->
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-api</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-impl</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.jsonwebtoken</groupId>
+                <artifactId>jjwt-jackson</artifactId>
+                <version>${jjwt.version}</version>
+            </dependency>    
 
         </dependencies>
     </dependencyManagement>
