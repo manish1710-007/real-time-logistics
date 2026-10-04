@@ -64,3 +64,4 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImpl.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionJpaRepository.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/main/java/com/logistics/identity/infrastructure/security/RefreshTokenGenerator.java
