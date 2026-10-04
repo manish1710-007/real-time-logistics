@@ -20,7 +20,7 @@ src/main/java/com/logistics/identity/domain/repository/RoleRepository.java 2026-
 src/main/java/com/logistics/identity/domain/repository/TenantRepository.java 2026-09-22T10:58:47.602887642Z
 src/main/java/com/logistics/identity/domain/repository/UserRepository.java 2026-09-22T10:58:47.525889474Z
 src/main/java/com/logistics/identity/domain/repository/UserRoleRepository.java 2026-09-25T18:16:19.252301183Z
-src/main/java/com/logistics/identity/domain/repository/UserSessionRepository.java 2026-09-22T20:23:23.742283040Z
+src/main/java/com/logistics/identity/domain/repository/UserSessionRepository.java 2026-10-04T10:19:30.465306239Z
 src/main/java/com/logistics/identity/domain/service/PasswordHasher.java 2026-09-23T12:57:07.296924105Z
 src/main/java/com/logistics/identity/domain/service/PasswordPolicy.java 2026-09-24T12:47:51.444088078Z
 src/main/java/com/logistics/identity/domain/valueobject/PermissionId.java 2026-09-22T10:58:46.742908122Z
@@ -64,7 +64,7 @@ src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserR
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaRepository.java 2026-09-25T19:40:06.064586550Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImpl.java 2026-09-25T19:47:17.622505913Z
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionJpaRepository.java 2026-10-04T10:14:29.705034751Z
-src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java 2026-09-22T20:23:23.580280053Z
+src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java 2026-10-04T10:29:10.434959350Z
 src/test/java/com/logistics/identity/application/command/AuthenticateUserCommandTest.java 2026-09-24T20:15:25.154370513Z
 src/test/java/com/logistics/identity/application/service/AuthenticationServiceImplTest.java 2026-10-03T17:58:01.652732933Z
 src/test/java/com/logistics/identity/application/service/PermissionLoaderImplTest.java 2026-10-03T18:08:31.722098035Z

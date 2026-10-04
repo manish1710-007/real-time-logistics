@@ -85,4 +85,14 @@ public class UserSessionRepositoryImpl implements UserSessionRepository {
                 .map(UserSessionMapper::toDomain)
                 .toList();
     }
+
+    @Override
+    @Transactional
+    public Optional<UserSession> findByIdForUpdate(UUID sessionId) {
+        if (sessionId == null) {
+            throw new IllegalArgumentException("Session ID cannot be null");
+        }
+
+        return userSessionJpaRepository.findByIdForUpdate(sessionId).map(UserSessionMapper::toDomain);
+    }
 }

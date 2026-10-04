@@ -13,6 +13,8 @@ public interface UserSessionRepository {
 
     Optional<UserSession> findById(UUID sessionId);
 
+    Optional<UserSession> findByIdForUpdate(UUID sessionId);
+
     List<UserSession> findByUserId(UserId userId);
 
     List<UserSession> findActiveByUserId(UserId userId, Instant now);
