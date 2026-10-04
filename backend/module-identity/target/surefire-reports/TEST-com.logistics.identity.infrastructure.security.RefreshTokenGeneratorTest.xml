@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="1.974" tests="8" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.infrastructure.security.RefreshTokenGeneratorTest" time="0.146" tests="6" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -36,11 +36,8 @@
     <property name="os.version" value="6.8.0-146-generic"/>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="file.encoding" value="UTF-8"/>
-    <property name="jnidispatch.path" value="/home/neo1710/.cache/JNA/temp/jna5236559701042906184.tmp"/>
     <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
-    <property name="jna.platform.library.path" value="/usr/lib/x86_64-linux-gnu:/lib/x86_64-linux-gnu:/usr/lib64:/lib64:/usr/lib:/lib:/lib/i386-linux-gnu:/lib32:/usr/lib/x86_64-linux-gnu/libfakeroot"/>
     <property name="localRepository" value="/home/neo1710/.m2/repository"/>
-    <property name="jna.loaded" value="true"/>
     <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-21"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="java.version" value="21.0.12.1"/>
@@ -56,12 +53,10 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldRejectBlankPassword" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.058"/>
-  <testcase name="shouldRejectNullPasswordHash" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.004"/>
-  <testcase name="shouldMatchCorrectPassword" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.628"/>
-  <testcase name="shouldRejectNullPassword" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.002"/>
-  <testcase name="shouldHashPassword" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.287"/>
-  <testcase name="shouldRejectBlankPasswordHash" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.004"/>
-  <testcase name="shouldRejectIncorrectPassword" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.538"/>
-  <testcase name="shouldGenerateDifferentHashesForSamePassword" classname="com.logistics.identity.infrastructure.password.Argon2idPasswordHasherTest" time="0.442"/>
+  <testcase name="generateTokenShouldProduceExpectedLength" classname="com.logistics.identity.infrastructure.security.RefreshTokenGeneratorTest" time="0.086"/>
+  <testcase name="generateTokenShouldReturnUniqueUrlSafeTokens" classname="com.logistics.identity.infrastructure.security.RefreshTokenGeneratorTest" time="0.005"/>
+  <testcase name="differentTokensShouldProduceDifferentHashes" classname="com.logistics.identity.infrastructure.security.RefreshTokenGeneratorTest" time="0.003"/>
+  <testcase name="hashTokenShouldRejectBlankInput" classname="com.logistics.identity.infrastructure.security.RefreshTokenGeneratorTest" time="0.004"/>
+  <testcase name="hashTokenShouldRejectNull" classname="com.logistics.identity.infrastructure.security.RefreshTokenGeneratorTest" time="0.002"/>
+  <testcase name="hashTokenShouldBeDeterministic" classname="com.logistics.identity.infrastructure.security.RefreshTokenGeneratorTest" time="0.001"/>
 </testsuite>

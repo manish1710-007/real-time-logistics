@@ -3,6 +3,7 @@ com/logistics/identity/infrastructure/password/Argon2idPasswordHasherTest.class
 com/logistics/identity/application/service/RoleLoaderImplTest.class
 com/logistics/identity/application/service/AuthenticationServiceImplTest.class
 com/logistics/identity/domain/entity/TenantTest.class
+com/logistics/identity/infrastructure/security/RefreshTokenGeneratorTest.class
 com/logistics/identity/domain/service/PasswordPolicyTest.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImplTest.class
 com/logistics/identity/application/service/PermissionLoaderImplTest.class
