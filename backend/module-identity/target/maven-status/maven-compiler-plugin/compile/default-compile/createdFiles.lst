@@ -10,6 +10,7 @@ com/logistics/identity/infrastructure/persistence/entity/UserSessionEntity.class
 com/logistics/identity/domain/service/PasswordHasher.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImpl.class
 com/logistics/identity/infrastructure/security/RefreshTokenGenerator.class
+com/logistics/identity/application/service/IssuedAccessToken.class
 com/logistics/identity/domain/repository/UserSessionRepository.class
 com/logistics/identity/application/command/AuthenticateUserCommand.class
 com/logistics/identity/application/service/PermissionLoaderImpl.class
@@ -45,6 +46,7 @@ com/logistics/identity/infrastructure/persistence/repository/UserJpaRepository.c
 com/logistics/identity/domain/entity/UserSession.class
 com/logistics/identity/domain/repository/UserRoleRepository.class
 com/logistics/identity/domain/repository/UserRepository.class
+com/logistics/identity/application/service/AccessTokenIssuer.class
 com/logistics/identity/infrastructure/jwt/JwtTokenService.class
 com/logistics/identity/application/service/AuthenticationResult.class
 com/logistics/identity/infrastructure/persistence/repository/RolePermissionJpaRepository.class
