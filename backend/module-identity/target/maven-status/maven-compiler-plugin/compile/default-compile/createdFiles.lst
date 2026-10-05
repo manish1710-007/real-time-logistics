@@ -13,6 +13,8 @@ com/logistics/identity/infrastructure/security/RefreshTokenGenerator.class
 com/logistics/identity/domain/repository/UserSessionRepository.class
 com/logistics/identity/application/command/AuthenticateUserCommand.class
 com/logistics/identity/application/service/PermissionLoaderImpl.class
+com/logistics/identity/application/service/RefreshTokenServiceImpl.class
+com/logistics/identity/infrastructure/configuration/TimeConfiguration.class
 com/logistics/identity/infrastructure/persistence/repository/RefreshTokenJpaRepository.class
 com/logistics/identity/infrastructure/persistence/entity/RefreshTokenEntity.class
 com/logistics/identity/infrastructure/jwt/JwtPropertiesValidator.class
