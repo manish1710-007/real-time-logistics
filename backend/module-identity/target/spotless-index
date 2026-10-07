@@ -3,7 +3,7 @@ src/main/java/com/logistics/identity/application/command/AuthenticateUserCommand
 src/main/java/com/logistics/identity/application/command/RefreshTokenCommand.java 2026-10-05T17:36:15.628148267Z
 src/main/java/com/logistics/identity/application/dto/RefreshTokenResult.java 2026-10-05T17:36:15.544148597Z
 src/main/java/com/logistics/identity/application/service/AccessTokenIssuer.java 2026-10-05T18:53:06.325507378Z
-src/main/java/com/logistics/identity/application/service/AccessTokenIssuerImpl.java 2026-10-07T12:41:24.379086105Z
+src/main/java/com/logistics/identity/application/service/AccessTokenIssuerImpl.java 2026-10-07T13:04:24.565848078Z
 src/main/java/com/logistics/identity/application/service/AuthenticationResult.java 2026-09-24T13:52:03.837288654Z
 src/main/java/com/logistics/identity/application/service/AuthenticationService.java 2026-09-24T13:52:03.897288621Z
 src/main/java/com/logistics/identity/application/service/AuthenticationServiceImpl.java 2026-10-03T17:55:48.797304172Z
@@ -75,6 +75,7 @@ src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserS
 src/main/java/com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.java 2026-10-04T10:29:10.434959350Z
 src/main/java/com/logistics/identity/infrastructure/security/RefreshTokenGenerator.java 2026-10-04T10:54:04.685144039Z
 src/test/java/com/logistics/identity/application/command/AuthenticateUserCommandTest.java 2026-09-24T20:15:25.154370513Z
+src/test/java/com/logistics/identity/application/service/AccessTokenIssuerImplTest.java 2026-10-07T13:22:25.971306128Z
 src/test/java/com/logistics/identity/application/service/AuthenticationServiceImplTest.java 2026-10-03T17:58:01.652732933Z
 src/test/java/com/logistics/identity/application/service/PermissionLoaderImplTest.java 2026-10-03T18:08:31.722098035Z
 src/test/java/com/logistics/identity/application/service/RefreshTokenServiceImplTest.java 2026-10-05T18:53:06.152516175Z

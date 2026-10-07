@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.domain.entity.UserRoleTest" time="0.024" tests="3" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" version="3.0.1" name="com.logistics.identity.application.service.AccessTokenIssuerImplTest" time="0.178" tests="1" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="21"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
@@ -57,7 +57,5 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="65.0"/>
   </properties>
-  <testcase name="shouldCreateUserRole" classname="com.logistics.identity.domain.entity.UserRoleTest" time="0.002"/>
-  <testcase name="shouldRejectNullRoleId" classname="com.logistics.identity.domain.entity.UserRoleTest" time="0.005"/>
-  <testcase name="shouldRejectNullUserId" classname="com.logistics.identity.domain.entity.UserRoleTest" time="0.002"/>
+  <testcase name="shouldIssueAccessTokenWithCorrectIdentityAndAuthorizationData" classname="com.logistics.identity.application.service.AccessTokenIssuerImplTest" time="0.146"/>
 </testsuite>
