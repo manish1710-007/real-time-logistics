@@ -6,6 +6,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
+import java.time.Clock;
 import java.time.Instant;
 import java.util.Collection;
 import java.util.Date;
@@ -17,27 +18,34 @@ public class JwtTokenService {
 
     private final JwtProperties properties;
     private final Key signingKey;
+    private final Clock clock;
 
-    public JwtTokenService(JwtProperties properties) {
+    public JwtTokenService(JwtProperties properties, Clock clock) {
         this.properties = properties;
         this.signingKey = Keys.hmacShaKeyFor(properties.getSecret().getBytes(StandardCharsets.UTF_8));
+        this.clock = clock;
+    }
+
+    public Instant accessTokenExpiresAt(Instant issuedAt) {
+        return issuedAt.plus(properties.getAccessTokenTtl());
     }
 
     public String issueAccessToken(
             String userId, String tenantId, Collection<String> roles, Collection<String> permissions) {
-        Instant issuedAt = Instant.now();
-        Instant expiresAt = issuedAt.plus(properties.getAccessTokenTtl());
+
+        Instant issuedAt = clock.instant();
+        Instant expiresAt = accessTokenExpiresAt(issuedAt);
 
         return Jwts.builder()
                 .issuer(properties.getIssuer())
                 .audience()
                 .add(properties.getAudience())
                 .and()
-                .setSubject(userId)
+                .subject(userId)
                 .id(UUID.randomUUID().toString())
                 .issuedAt(Date.from(issuedAt))
                 .expiration(Date.from(expiresAt))
-                .claim("tenantId", tenantId)
+                .claim("tenant_id", tenantId)
                 .claim("roles", roles)
                 .claim("permissions", permissions)
                 .signWith(signingKey)
