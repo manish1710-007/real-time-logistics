@@ -5,8 +5,8 @@ import com.logistics.identity.application.dto.RefreshTokenResult;
 import com.logistics.identity.domain.entity.RefreshToken;
 import com.logistics.identity.domain.entity.UserSession;
 import com.logistics.identity.domain.repository.RefreshTokenRepository;
+import com.logistics.identity.domain.repository.UserRepository;
 import com.logistics.identity.domain.repository.UserSessionRepository;
-import com.logistics.identity.infrastructure.jwt.JwtTokenService;
 import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
 import java.time.Clock;
 import java.time.Instant;
@@ -20,19 +20,28 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
     private final UserSessionRepository userSessionRepository;
     private final RefreshTokenGenerator refreshTokenGenerator;
-    private final JwtTokenService jwtTokenService;
+    private final UserRepository userRepository;
+    private final RoleLoader roleLoader;
+    private final PermissionLoader permissionLoader;
+    private final AccessTokenIssuer accessTokenIssuer;
     private final Clock clock;
 
     public RefreshTokenServiceImpl(
             RefreshTokenRepository refreshTokenRepository,
             UserSessionRepository userSessionRepository,
+            UserRepository userRepository,
             RefreshTokenGenerator refreshTokenGenerator,
-            JwtTokenService jwtTokenService,
+            RoleLoader roleLoader,
+            PermissionLoader permissionLoader,
+            AccessTokenIssuer accessTokenIssuer,
             Clock clock) {
         this.refreshTokenRepository = refreshTokenRepository;
         this.userSessionRepository = userSessionRepository;
+        this.userRepository = userRepository;
         this.refreshTokenGenerator = refreshTokenGenerator;
-        this.jwtTokenService = jwtTokenService;
+        this.roleLoader = roleLoader;
+        this.permissionLoader = permissionLoader;
+        this.accessTokenIssuer = accessTokenIssuer;
         this.clock = clock;
     }
 
@@ -66,6 +75,15 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             throw new IllegalArgumentException("Refresh token reuse detected");
         }
 
+        var user = userRepository
+                .findById(session.userId())
+                .orElseThrow(() -> new IllegalArgumentException("Refresh token user not found"));
+
+        var roles = roleLoader.loadRole(user.id());
+        var permissions = permissionLoader.loadPermissions(roles);
+
+        IssuedAccessToken accessToken = accessTokenIssuer.issue(user.id(), user.tenantId(), roles, permissions);
+
         String newRawToken = refreshTokenGenerator.generateToken();
         String newTokenHash = refreshTokenGenerator.hashToken(newRawToken);
 
@@ -81,6 +99,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
         refreshTokenRepository.save(replacement);
 
-        return new RefreshTokenResult(null, newRawToken, null, newRefreshTokenExpiresAt);
+        return new RefreshTokenResult(
+                accessToken.token(), newRawToken, accessToken.expiresAt(), newRefreshTokenExpiresAt);
     }
 }
