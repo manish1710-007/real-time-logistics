@@ -5,8 +5,11 @@ import com.logistics.identity.application.dto.RefreshTokenResult;
 import com.logistics.identity.domain.entity.RefreshToken;
 import com.logistics.identity.domain.entity.UserSession;
 import com.logistics.identity.domain.repository.RefreshTokenRepository;
+import com.logistics.identity.domain.repository.TenantRepository;
 import com.logistics.identity.domain.repository.UserRepository;
 import com.logistics.identity.domain.repository.UserSessionRepository;
+import com.logistics.identity.domain.valueobject.TenantStatus;
+import com.logistics.identity.domain.valueobject.UserStatus;
 import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
 import java.time.Clock;
 import java.time.Instant;
@@ -24,12 +27,14 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     private final RoleLoader roleLoader;
     private final PermissionLoader permissionLoader;
     private final AccessTokenIssuer accessTokenIssuer;
+    private final TenantRepository tenantRepository;
     private final Clock clock;
 
     public RefreshTokenServiceImpl(
             RefreshTokenRepository refreshTokenRepository,
             UserSessionRepository userSessionRepository,
             UserRepository userRepository,
+            TenantRepository tenantRepository,
             RefreshTokenGenerator refreshTokenGenerator,
             RoleLoader roleLoader,
             PermissionLoader permissionLoader,
@@ -38,6 +43,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         this.refreshTokenRepository = refreshTokenRepository;
         this.userSessionRepository = userSessionRepository;
         this.userRepository = userRepository;
+        this.tenantRepository = tenantRepository;
         this.refreshTokenGenerator = refreshTokenGenerator;
         this.roleLoader = roleLoader;
         this.permissionLoader = permissionLoader;
@@ -78,6 +84,15 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         var user = userRepository
                 .findById(session.userId())
                 .orElseThrow(() -> new IllegalArgumentException("Refresh token user not found"));
+
+        if (user.status() != UserStatus.INVITED && user.status() != UserStatus.ACTIVE) {
+            throw new IllegalArgumentException("Refresh token user is inactive");
+        }
+
+        tenantRepository
+                .findById(user.tenantId())
+                .filter(t -> t.status() == TenantStatus.ACTIVE)
+                .orElseThrow(() -> new IllegalArgumentException("Refresh token tenant is inactive"));
 
         var roles = roleLoader.loadRole(user.id());
         var permissions = permissionLoader.loadPermissions(roles);

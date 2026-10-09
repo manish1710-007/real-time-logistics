@@ -16,13 +16,17 @@ import com.logistics.identity.application.dto.RefreshTokenResult;
 import com.logistics.identity.domain.entity.Permission;
 import com.logistics.identity.domain.entity.RefreshToken;
 import com.logistics.identity.domain.entity.Role;
+import com.logistics.identity.domain.entity.Tenant;
 import com.logistics.identity.domain.entity.User;
 import com.logistics.identity.domain.entity.UserSession;
 import com.logistics.identity.domain.repository.RefreshTokenRepository;
+import com.logistics.identity.domain.repository.TenantRepository;
 import com.logistics.identity.domain.repository.UserRepository;
 import com.logistics.identity.domain.repository.UserSessionRepository;
 import com.logistics.identity.domain.valueobject.TenantId;
+import com.logistics.identity.domain.valueobject.TenantStatus;
 import com.logistics.identity.domain.valueobject.UserId;
+import com.logistics.identity.domain.valueobject.UserStatus;
 import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
 import java.time.Clock;
 import java.time.Instant;
@@ -49,6 +53,9 @@ class RefreshTokenServiceImplTest {
     private UserRepository userRepository;
 
     @Mock
+    private TenantRepository tenantRepository;
+
+    @Mock
     private RefreshTokenGenerator refreshTokenGenerator;
 
     @Mock
@@ -71,6 +78,7 @@ class RefreshTokenServiceImplTest {
                 refreshTokenRepository,
                 userSessionRepository,
                 userRepository,
+                tenantRepository,
                 refreshTokenGenerator,
                 roleLoader,
                 permissionLoader,
@@ -148,6 +156,9 @@ class RefreshTokenServiceImplTest {
         User user = mock(User.class);
         when(user.id()).thenReturn(userId);
         when(user.tenantId()).thenReturn(tenantId);
+        when(user.status()).thenReturn(UserStatus.ACTIVE);
+
+        Tenant tenant = Tenant.reconstitute(tenantId, "Test Tenant", "test-tenant", TenantStatus.ACTIVE, now, now);
 
         List<Role> roles = List.of(mock(Role.class));
         List<Permission> permissions = List.of(mock(Permission.class));
@@ -156,6 +167,7 @@ class RefreshTokenServiceImplTest {
         when(refreshTokenRepository.findByTokenHashForUpdate("old-hash")).thenReturn(Optional.of(oldToken));
         when(userSessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.of(session));
         when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(tenantRepository.findById(tenantId)).thenReturn(Optional.of(tenant));
         when(roleLoader.loadRole(userId)).thenReturn(roles);
         when(permissionLoader.loadPermissions(roles)).thenReturn(permissions);
 
