@@ -3,8 +3,11 @@ package com.logistics.identity.application.service;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.ArgumentMatchers.argThat;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -178,5 +181,41 @@ class RefreshTokenServiceImplTest {
                         && token.tokenHash().equals("new-hash")
                         && token.expiresAt().equals(oldToken.expiresAt())
                         && token.isActive(now)));
+    }
+
+    @Test
+    void shouldRejectRefreshWhenSessionIsRevoked() {
+        Instant now = clock.instant();
+
+        UUID sessionId = UUID.randomUUID();
+
+        UserSession session = UserSession.reconstitute(
+                sessionId,
+                UserId.generate(),
+                now.minusSeconds(120),
+                now.minusSeconds(60),
+                now.plusSeconds(3600),
+                now.minusSeconds(30),
+                "127.0.0.1",
+                "JUnit");
+
+        RefreshToken refreshToken = RefreshToken.create(
+                UUID.randomUUID(), sessionId, "stored-token-hash", now.minusSeconds(60), now.plusSeconds(1800));
+
+        when(refreshTokenGenerator.hashToken("valid-raw-token")).thenReturn("stored-token-hash");
+
+        when(refreshTokenRepository.findByTokenHashForUpdate("stored-token-hash"))
+                .thenReturn(Optional.of(refreshToken));
+
+        when(userSessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.of(session));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> refreshTokenService.refreshToken(new RefreshTokenCommand("valid-raw-token")));
+
+        assertEquals("Refresh token session is inactive", exception.getMessage());
+
+        verify(userRepository, never()).findById(any());
+        verify(accessTokenIssuer, never()).issue(any(), any(), anyList(), anyList());
     }
 }
