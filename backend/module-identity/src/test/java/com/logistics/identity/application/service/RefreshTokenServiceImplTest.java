@@ -218,4 +218,33 @@ class RefreshTokenServiceImplTest {
         verify(userRepository, never()).findById(any());
         verify(accessTokenIssuer, never()).issue(any(), any(), anyList(), anyList());
     }
+
+    @Test
+    void shouldRejectExpiredRefreshToken() {
+        Instant now = clock.instant();
+
+        UUID sessionId = UUID.randomUUID();
+
+        UserSession session = UserSession.create(
+                sessionId, UserId.generate(), now.minusSeconds(120), now.plusSeconds(3600), "127.0.0.1", "JUnit");
+
+        RefreshToken expiredToken =
+                RefreshToken.create(UUID.randomUUID(), sessionId, "expired-token-hash", now.minusSeconds(3600), now);
+
+        when(refreshTokenGenerator.hashToken("expired-raw-token")).thenReturn("expired-token-hash");
+
+        when(refreshTokenRepository.findByTokenHashForUpdate("expired-token-hash"))
+                .thenReturn(Optional.of(expiredToken));
+
+        when(userSessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.of(session));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> refreshTokenService.refreshToken(new RefreshTokenCommand("expired-raw-token")));
+
+        assertEquals("Refresh token has expired", exception.getMessage());
+
+        verify(userRepository, never()).findById(any());
+        verify(accessTokenIssuer, never()).issue(any(), any(), anyList(), anyList());
+    }
 }
