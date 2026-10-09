@@ -46,7 +46,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    @Transactional
+    @Transactional(noRollbackFor = RefreshTokenReuseDetectedException.class)
     public RefreshTokenResult refreshToken(RefreshTokenCommand command) {
         Instant now = clock.instant();
 
@@ -72,7 +72,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
             session.revoke(now);
             userSessionRepository.save(session);
 
-            throw new IllegalArgumentException("Refresh token reuse detected");
+            throw new RefreshTokenReuseDetectedException();
         }
 
         var user = userRepository
