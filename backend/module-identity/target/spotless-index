@@ -7,12 +7,13 @@ src/main/java/com/logistics/identity/application/service/AccessTokenIssuerImpl.j
 src/main/java/com/logistics/identity/application/service/AuthenticationResult.java 2026-09-24T13:52:03.837288654Z
 src/main/java/com/logistics/identity/application/service/AuthenticationService.java 2026-09-24T13:52:03.897288621Z
 src/main/java/com/logistics/identity/application/service/AuthenticationServiceImpl.java 2026-10-03T17:55:48.797304172Z
+src/main/java/com/logistics/identity/application/service/InactiveIdentityRefreshException.java 2026-10-10T16:21:34.749268276Z
 src/main/java/com/logistics/identity/application/service/IssuedAccessToken.java 2026-10-05T18:53:06.251511141Z
 src/main/java/com/logistics/identity/application/service/PermissionLoader.java 2026-09-30T11:33:17.106984352Z
 src/main/java/com/logistics/identity/application/service/PermissionLoaderImpl.java 2026-09-30T11:50:28.232399319Z
 src/main/java/com/logistics/identity/application/service/RefreshTokenReuseDetectedException.java 2026-10-09T12:34:52.359667922Z
 src/main/java/com/logistics/identity/application/service/RefreshTokenService.java 2026-10-05T17:36:15.677148074Z
-src/main/java/com/logistics/identity/application/service/RefreshTokenServiceImpl.java 2026-10-10T15:57:12.637583065Z
+src/main/java/com/logistics/identity/application/service/RefreshTokenServiceImpl.java 2026-10-10T16:21:34.687266666Z
 src/main/java/com/logistics/identity/application/service/RoleLoader.java 2026-09-26T19:46:03.926046592Z
 src/main/java/com/logistics/identity/application/service/RoleLoaderImpl.java 2026-09-27T10:57:08.732996894Z
 src/main/java/com/logistics/identity/domain/entity/Permission.java 2026-09-22T10:58:47.434891640Z

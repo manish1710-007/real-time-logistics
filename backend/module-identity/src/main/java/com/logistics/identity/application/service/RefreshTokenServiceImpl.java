@@ -57,7 +57,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
-    @Transactional(noRollbackFor = RefreshTokenReuseDetectedException.class)
+    @Transactional(noRollbackFor = {RefreshTokenReuseDetectedException.class, InactiveIdentityRefreshException.class})
     public RefreshTokenResult refreshToken(RefreshTokenCommand command) {
         Instant now = clock.instant();
 
@@ -92,7 +92,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
         if (user.status() != UserStatus.INVITED && user.status() != UserStatus.ACTIVE) {
             revokeSession(session, now);
-            throw new IllegalArgumentException("Refresh token user is inactive");
+            throw new InactiveIdentityRefreshException("Refresh token user is inactive");
         }
 
         tenantRepository
@@ -100,7 +100,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
                 .filter(t -> t.status() == TenantStatus.ACTIVE)
                 .orElseThrow(() -> {
                     revokeSession(session, now);
-                    throw new IllegalArgumentException("Refresh token tenant is inactive");
+                    throw new InactiveIdentityRefreshException("Refresh token tenant is inactive");
                 });
 
         var roles = roleLoader.loadRole(user.id());

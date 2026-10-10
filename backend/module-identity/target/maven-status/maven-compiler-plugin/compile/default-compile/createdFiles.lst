@@ -3,6 +3,7 @@ com/logistics/identity/infrastructure/jwt/JwtProperties.class
 com/logistics/identity/domain/service/PasswordPolicy.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaRepository.class
 com/logistics/identity/infrastructure/persistence/mapper/RoleMapper.class
+com/logistics/identity/application/service/InactiveIdentityRefreshException.class
 com/logistics/identity/infrastructure/jwt/JwtConfiguration.class
 com/logistics/identity/application/service/RefreshTokenReuseDetectedException.class
 com/logistics/identity/application/dto/RefreshTokenResult.class
