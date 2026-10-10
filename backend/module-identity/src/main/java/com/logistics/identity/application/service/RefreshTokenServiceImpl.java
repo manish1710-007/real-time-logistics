@@ -30,6 +30,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     private final TenantRepository tenantRepository;
     private final Clock clock;
 
+    private void revokeSession(UserSession session, Instant now) {
+        session.revoke(now);
+        userSessionRepository.save(session);
+    }
+
     public RefreshTokenServiceImpl(
             RefreshTokenRepository refreshTokenRepository,
             UserSessionRepository userSessionRepository,
@@ -86,13 +91,17 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
                 .orElseThrow(() -> new IllegalArgumentException("Refresh token user not found"));
 
         if (user.status() != UserStatus.INVITED && user.status() != UserStatus.ACTIVE) {
+            revokeSession(session, now);
             throw new IllegalArgumentException("Refresh token user is inactive");
         }
 
         tenantRepository
                 .findById(user.tenantId())
                 .filter(t -> t.status() == TenantStatus.ACTIVE)
-                .orElseThrow(() -> new IllegalArgumentException("Refresh token tenant is inactive"));
+                .orElseThrow(() -> {
+                    revokeSession(session, now);
+                    throw new IllegalArgumentException("Refresh token tenant is inactive");
+                });
 
         var roles = roleLoader.loadRole(user.id());
         var permissions = permissionLoader.loadPermissions(roles);

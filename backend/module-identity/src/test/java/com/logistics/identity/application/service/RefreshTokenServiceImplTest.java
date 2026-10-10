@@ -259,4 +259,76 @@ class RefreshTokenServiceImplTest {
         verify(userRepository, never()).findById(any());
         verify(accessTokenIssuer, never()).issue(any(), any(), anyList(), anyList());
     }
+
+    @Test
+    void shouldRejectRefreshWhenUserIsSuspended() {
+        Instant now = clock.instant();
+
+        UUID sessionId = UUID.randomUUID();
+        UserId userId = UserId.generate();
+        TenantId tenantId = new TenantId(UUID.randomUUID());
+
+        UserSession session = UserSession.create(
+                sessionId, userId, now.minusSeconds(60), now.plusSeconds(3600), "127.0.0.1", "JUnit");
+
+        RefreshToken refreshToken = RefreshToken.create(
+                UUID.randomUUID(), sessionId, "suspended-user-hash", now.minusSeconds(60), now.plusSeconds(1800));
+
+        User user = mock(User.class);
+        when(user.status()).thenReturn(UserStatus.SUSPENDED);
+
+        when(refreshTokenGenerator.hashToken("suspended-user-token")).thenReturn("suspended-user-hash");
+        when(refreshTokenRepository.findByTokenHashForUpdate("suspended-user-hash"))
+                .thenReturn(Optional.of(refreshToken));
+        when(userSessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.of(session));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> refreshTokenService.refreshToken(new RefreshTokenCommand("suspended-user-token")));
+
+        assertEquals("Refresh token user is inactive", exception.getMessage());
+        assertTrue(session.isRevoked());
+
+        verify(userSessionRepository).save(session);
+        verify(accessTokenIssuer, never()).issue(any(), any(), anyList(), anyList());
+    }
+
+    @Test
+    void shouldRejectRefreshWhenTenantIsInactive() {
+        Instant now = clock.instant();
+
+        UUID sessionId = UUID.randomUUID();
+        UserId userId = UserId.generate();
+        TenantId tenantId = new TenantId(UUID.randomUUID());
+
+        UserSession session = UserSession.create(
+                sessionId, userId, now.minusSeconds(60), now.plusSeconds(3600), "127.0.0.1", "JUnit");
+
+        RefreshToken refreshToken = RefreshToken.create(
+                UUID.randomUUID(), sessionId, "inactive-tenant-hash", now.minusSeconds(60), now.plusSeconds(1800));
+
+        User user = mock(User.class);
+        when(user.tenantId()).thenReturn(tenantId);
+        when(user.status()).thenReturn(UserStatus.ACTIVE);
+
+        Tenant tenant = Tenant.reconstitute(tenantId, "Test Tenant", "test-tenant", TenantStatus.SUSPENDED, now, now);
+
+        when(refreshTokenGenerator.hashToken("inactive-tenant-token")).thenReturn("inactive-tenant-hash");
+        when(refreshTokenRepository.findByTokenHashForUpdate("inactive-tenant-hash"))
+                .thenReturn(Optional.of(refreshToken));
+        when(userSessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.of(session));
+        when(userRepository.findById(userId)).thenReturn(Optional.of(user));
+        when(tenantRepository.findById(tenantId)).thenReturn(Optional.of(tenant));
+
+        IllegalArgumentException exception = assertThrows(
+                IllegalArgumentException.class,
+                () -> refreshTokenService.refreshToken(new RefreshTokenCommand("inactive-tenant-token")));
+
+        assertEquals("Refresh token tenant is inactive", exception.getMessage());
+        assertTrue(session.isRevoked());
+
+        verify(userSessionRepository).save(session);
+        verify(accessTokenIssuer, never()).issue(any(), any(), anyList(), anyList());
+    }
 }
