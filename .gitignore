@@ -26,3 +26,11 @@ hs_err_pid*
 replay_pid*
 
 .fake
+
+# Maven build output
+**/target/
+
+# IDE files
+.idea/
+.vscode/
+*.iml
