@@ -1,13 +1,15 @@
 package com.logistics.bootstrap.security;
 
-import com.logistics.identity.infrastructure.jwt.JwtTokenService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.logistics.identity.infrastructure.jwt.JwtTokenService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfiguration {
@@ -31,7 +33,14 @@ public class SecurityConfiguration {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .exceptionHandling(Customizer.withDefaults())
+                .exceptionHandling(exception -> exception
+                    .authenticationEntryPoint((request, response, authException) ->
+                        response.sendError(
+                            HttpServletResponse.SC_UNAUTHORIZED,
+                            "Unauthorized"
+                        )
+                    )
+                )    
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
