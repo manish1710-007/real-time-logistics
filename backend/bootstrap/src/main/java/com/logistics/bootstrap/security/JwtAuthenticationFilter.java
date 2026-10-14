@@ -6,6 +6,8 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import com.logistics.shared.security.TenantContext;
+import java.util.UUID;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -39,6 +41,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         try {
             Claims claims = jwtTokenService.validateAccessToken(token);
+            String tenantId = claims.get("tenant_id", String.class);
+            TenantContext.setTenantId(UUID.fromString(tenantId));
             List<SimpleGrantedAuthority> authorities = new ArrayList<>();
 
             addAuthorities(authorities, claims.get("roles", List.class), "ROLE_");
@@ -56,7 +60,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             return;
         }
 
-        filterChain.doFilter(request, response);
+        try {
+            filterChain.doFilter(request, response);
+        } finally {
+            TenantContext.clear();
+        }
     }
 
     private void addAuthorities(Collection<SimpleGrantedAuthority> authorities, List<?> values, String prefix) {

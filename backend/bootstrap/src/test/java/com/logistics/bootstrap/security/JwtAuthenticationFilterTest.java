@@ -76,6 +76,7 @@ class JwtAuthenticationFilterTest {
         Claims claims = org.mockito.Mockito.mock(Claims.class);
         when(jwtTokenService.validateAccessToken("valid-token")).thenReturn(claims);
         when(claims.getSubject()).thenReturn("user-123");
+        when(claims.get("tenant_id", String.class)).thenReturn("123e4567-e89b-12d3-a456-426614174000");
         when(claims.get("roles", List.class)).thenReturn(List.of("ADMIN"));
         when(claims.get("permissions", List.class)).thenReturn(List.of("order:read"));
 

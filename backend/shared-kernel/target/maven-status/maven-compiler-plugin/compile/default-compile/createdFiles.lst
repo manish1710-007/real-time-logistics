@@ -5,6 +5,7 @@ com/logistics/shared/exception/ValidationException.class
 com/logistics/shared/domain/event/DomainEvent.class
 com/logistics/shared/exception/ErrorCode.class
 com/logistics/shared/domain/valueobject/Money.class
+com/logistics/shared/security/TenantContext.class
 com/logistics/shared/exception/ConflictException.class
 com/logistics/shared/api/ApiResponse.class
 com/logistics/shared/api/ErrorResponse.class

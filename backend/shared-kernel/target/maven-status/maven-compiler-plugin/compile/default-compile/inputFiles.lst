@@ -13,3 +13,4 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/exception/InfrastructureException.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/exception/NotFoundException.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/exception/ValidationException.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/shared-kernel/src/main/java/com/logistics/shared/security/TenantContext.java
