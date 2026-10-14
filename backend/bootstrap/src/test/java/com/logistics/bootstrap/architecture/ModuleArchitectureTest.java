@@ -1,12 +1,11 @@
-
 package com.logistics.bootstrap.architecture;
 
-import org.junit.jupiter.api.Test;
+import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
 
 import com.tngtech.archunit.core.domain.JavaClasses;
 import com.tngtech.archunit.core.importer.ClassFileImporter;
 import com.tngtech.archunit.lang.ArchRule;
-import static com.tngtech.archunit.lang.syntax.ArchRuleDefinition.noClasses;
+import org.junit.jupiter.api.Test;
 
 class ModuleArchitectureTest {
 
@@ -17,24 +16,19 @@ class ModuleArchitectureTest {
     private static final String ROUTING = "com.logistics.routing..";
     private static final String ANALYTICS = "com.logistics.analytics..";
 
-    private static final String[] FEATURE_MODULES = {
-            IDENTITY, DRIVER, ORDER, TRACKING, ROUTING, ANALYTICS
-    };
+    private static final String[] FEATURE_MODULES = {IDENTITY, DRIVER, ORDER, TRACKING, ROUTING, ANALYTICS};
 
-    
-    
     @Test
     void featureModulesMustNotDependOnOtherFeatureModulesInfrastructure() {
-        JavaClasses classes = new ClassFileImporter()
-                .importPackages("com.logistics");
+        JavaClasses classes = new ClassFileImporter().importPackages("com.logistics");
 
         String[] modules = {
-                "com.logistics.identity",
-                "com.logistics.driver",
-                "com.logistics.order",
-                "com.logistics.tracking",
-                "com.logistics.routing",
-                "com.logistics.analytics"
+            "com.logistics.identity",
+            "com.logistics.driver",
+            "com.logistics.order",
+            "com.logistics.tracking",
+            "com.logistics.routing",
+            "com.logistics.analytics"
         };
 
         for (String sourceModule : modules) {
@@ -49,8 +43,7 @@ class ModuleArchitectureTest {
                         .resideInAnyPackage(sourceModule + "..")
                         .should()
                         .dependOnClassesThat()
-                        .resideInAnyPackage(
-                                targetModule + ".infrastructure..")
+                        .resideInAnyPackage(targetModule + ".infrastructure..")
                         .allowEmptyShould(true);
 
                 rule.check(classes);
@@ -58,15 +51,15 @@ class ModuleArchitectureTest {
         }
     }
 
-
     @Test
     void sharedKernelMustNotDependOnFeatureModules() {
-        JavaClasses classes = new ClassFileImporter()
-                .importPackages("com.logistics");
+        JavaClasses classes = new ClassFileImporter().importPackages("com.logistics");
 
         ArchRule rule = noClasses()
-                .that().resideInAPackage("com.logistics.shared..")
-                .should().dependOnClassesThat()
+                .that()
+                .resideInAPackage("com.logistics.shared..")
+                .should()
+                .dependOnClassesThat()
                 .resideInAnyPackage(FEATURE_MODULES);
 
         rule.check(classes);

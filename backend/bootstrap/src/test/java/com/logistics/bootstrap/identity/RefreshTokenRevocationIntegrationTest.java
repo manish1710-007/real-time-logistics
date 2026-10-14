@@ -1,4 +1,3 @@
-
 package com.logistics.bootstrap.identity;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -17,7 +16,6 @@ import com.logistics.identity.domain.repository.TenantRepository;
 import com.logistics.identity.domain.repository.UserRepository;
 import com.logistics.identity.domain.repository.UserSessionRepository;
 import com.logistics.identity.domain.valueobject.TenantId;
-import com.logistics.identity.domain.valueobject.TenantStatus;
 import com.logistics.identity.domain.valueobject.UserId;
 import com.logistics.identity.domain.valueobject.UserStatus;
 import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
@@ -47,11 +45,10 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 class RefreshTokenRevocationIntegrationTest {
 
     @Container
-    static final PostgreSQLContainer<?> POSTGRES =
-            new PostgreSQLContainer<>("postgres:16-alpine")
-                    .withDatabaseName("logistics_test")
-                    .withUsername("test_user")
-                    .withPassword("test_password");
+    static final PostgreSQLContainer<?> POSTGRES = new PostgreSQLContainer<>("postgres:16-alpine")
+            .withDatabaseName("logistics_test")
+            .withUsername("test_user")
+            .withPassword("test_password");
 
     @DynamicPropertySource
     static void configureDatabase(DynamicPropertyRegistry registry) {
@@ -89,10 +86,7 @@ class RefreshTokenRevocationIntegrationTest {
         UUID refreshTokenId = UUID.randomUUID();
 
         // 1. Persist an active tenant.
-        Tenant tenant = Tenant.create(
-                tenantId,
-                "Integration Test Tenant",
-                "integration-test-" + UUID.randomUUID());
+        Tenant tenant = Tenant.create(tenantId, "Integration Test Tenant", "integration-test-" + UUID.randomUUID());
 
         tenantRepository.save(tenant);
 
@@ -115,13 +109,8 @@ class RefreshTokenRevocationIntegrationTest {
         userRepository.save(user);
 
         // 3. Persist an active session for the suspended user.
-        UserSession session = UserSession.create(
-                sessionId,
-                userId,
-                now,
-                now.plusSeconds(3600),
-                "127.0.0.1",
-                "integration-test");
+        UserSession session =
+                UserSession.create(sessionId, userId, now, now.plusSeconds(3600), "127.0.0.1", "integration-test");
 
         userSessionRepository.save(session);
 
@@ -129,28 +118,21 @@ class RefreshTokenRevocationIntegrationTest {
         String rawRefreshToken = refreshTokenGenerator.generateToken();
         String tokenHash = refreshTokenGenerator.hashToken(rawRefreshToken);
 
-        RefreshToken refreshToken = RefreshToken.create(
-                refreshTokenId,
-                sessionId,
-                tokenHash,
-                now,
-                now.plusSeconds(3600));
+        RefreshToken refreshToken =
+                RefreshToken.create(refreshTokenId, sessionId, tokenHash, now, now.plusSeconds(3600));
 
         refreshTokenRepository.save(refreshToken);
 
         // 5. Refresh must fail and revoke the user's session.
         assertThrows(
                 InactiveIdentityRefreshException.class,
-                () -> refreshTokenService.refreshToken(
-                        new RefreshTokenCommand(rawRefreshToken)));
+                () -> refreshTokenService.refreshToken(new RefreshTokenCommand(rawRefreshToken)));
 
         // 6. Read through the repository after the service transaction ended.
         UserSession persistedSession = userSessionRepository
                 .findById(sessionId)
                 .orElseThrow(() -> new AssertionError("Session was not persisted"));
 
-        assertNotNull(
-                persistedSession.revokedAt(),
-                "Session revocation must be committed despite the exception");
+        assertNotNull(persistedSession.revokedAt(), "Session revocation must be committed despite the exception");
     }
 }

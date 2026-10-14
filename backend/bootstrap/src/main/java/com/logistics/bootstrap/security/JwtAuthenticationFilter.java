@@ -1,4 +1,3 @@
-
 package com.logistics.bootstrap.security;
 
 import com.logistics.identity.infrastructure.jwt.JwtTokenService;
@@ -26,10 +25,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(
-            HttpServletRequest request,
-            HttpServletResponse response,
-            FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
 
         String authorization = request.getHeader("Authorization");
 
@@ -48,11 +45,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             addAuthorities(authorities, claims.get("permissions", List.class), "PERM_");
 
             UsernamePasswordAuthenticationToken authentication =
-                    new UsernamePasswordAuthenticationToken(
-                            claims.getSubject(), null, authorities);
+                    new UsernamePasswordAuthenticationToken(claims.getSubject(), null, authorities);
 
-            authentication.setDetails(
-                    new WebAuthenticationDetailsSource().buildDetails(request));
+            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
         } catch (RuntimeException exception) {
@@ -64,10 +59,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
-    private void addAuthorities(
-            Collection<SimpleGrantedAuthority> authorities,
-            List<?> values,
-            String prefix) {
+    private void addAuthorities(Collection<SimpleGrantedAuthority> authorities, List<?> values, String prefix) {
 
         if (values == null) {
             return;
