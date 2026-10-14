@@ -56,6 +56,7 @@ public class JwtTokenService {
         Jws<Claims> parsed = Jwts.parser()
                 .verifyWith((javax.crypto.SecretKey) signingKey)
                 .requireIssuer(properties.getIssuer())
+                .clock((io.jsonwebtoken.Clock) () -> Date.from(clock.instant()))
                 .build()
                 .parseSignedClaims(token);
 

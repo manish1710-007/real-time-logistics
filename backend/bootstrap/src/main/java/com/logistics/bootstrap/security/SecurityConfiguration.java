@@ -6,13 +6,23 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 
 import com.logistics.identity.infrastructure.jwt.JwtTokenService;
 
+import jakarta.servlet.FilterRegistration;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Configuration
 public class SecurityConfiguration {
+
+    @Bean
+    FilterRegistrationBean<JwtAuthenticationFilter> jwtFilterRegistration(
+            JwtAuthenticationFilter jwtAuthenticationFilter) {
+        FilterRegistrationBean<JwtAuthenticationFilter> registration = new FilterRegistrationBean<>(jwtAuthenticationFilter);
+        registration.setEnabled(false);
+        return registration;
+    }
 
     @Bean
     JwtAuthenticationFilter jwtAuthenticationFilter(JwtTokenService jwtTokenService) {
