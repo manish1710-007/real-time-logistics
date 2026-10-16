@@ -36,7 +36,7 @@ public class SessionManagementServiceImpl implements SessionManagementService {
         UserSession session = sessionRepository
                 .findByIdForUpdate(sessionId)
                 .filter(s -> s.userId().equals(userId))
-                .orElseThrow(() -> new IllegalArgumentException("SEssion not found"));
+                .orElseThrow(() -> new IllegalArgumentException("Session not found"));
 
         revoke(session, clock.instant());
     }
