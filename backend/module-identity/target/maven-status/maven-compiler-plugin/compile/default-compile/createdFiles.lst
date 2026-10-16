@@ -44,6 +44,7 @@ com/logistics/identity/application/service/PermissionLoader.class
 com/logistics/identity/domain/repository/RoleRepository.class
 com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.class
 com/logistics/identity/infrastructure/persistence/mapper/RefreshTokenMapper.class
+com/logistics/identity/application/service/SessionManagementServiceImpl.class
 com/logistics/identity/infrastructure/persistence/entity/PermissionEntity.class
 com/logistics/identity/infrastructure/persistence/repository/UserJpaRepository.class
 com/logistics/identity/domain/entity/UserSession.class
@@ -58,5 +59,6 @@ com/logistics/identity/application/service/RoleLoaderImpl.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionRepositoryImpl.class
 com/logistics/identity/domain/entity/RefreshToken.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.class
+com/logistics/identity/application/service/SessionManagementService.class
 com/logistics/identity/infrastructure/password/Argon2idPasswordHasher.class
 com/logistics/identity/infrastructure/persistence/mapper/UserSessionMapper.class

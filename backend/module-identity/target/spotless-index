@@ -16,6 +16,8 @@ src/main/java/com/logistics/identity/application/service/RefreshTokenService.jav
 src/main/java/com/logistics/identity/application/service/RefreshTokenServiceImpl.java 2026-10-10T16:21:34.687266666Z
 src/main/java/com/logistics/identity/application/service/RoleLoader.java 2026-09-26T19:46:03.926046592Z
 src/main/java/com/logistics/identity/application/service/RoleLoaderImpl.java 2026-09-27T10:57:08.732996894Z
+src/main/java/com/logistics/identity/application/service/SessionManagementService.java 2026-10-16T18:58:03.785581961Z
+src/main/java/com/logistics/identity/application/service/SessionManagementServiceImpl.java 2026-10-16T18:58:03.903581411Z
 src/main/java/com/logistics/identity/domain/entity/Permission.java 2026-09-22T10:58:47.434891640Z
 src/main/java/com/logistics/identity/domain/entity/RefreshToken.java 2026-09-22T20:30:18.025624016Z
 src/main/java/com/logistics/identity/domain/entity/Role.java 2026-09-22T10:58:47.088899875Z
@@ -43,7 +45,7 @@ src/main/java/com/logistics/identity/infrastructure/configuration/TimeConfigurat
 src/main/java/com/logistics/identity/infrastructure/jwt/JwtConfiguration.java 2026-10-03T19:04:13.024396639Z
 src/main/java/com/logistics/identity/infrastructure/jwt/JwtProperties.java 2026-10-03T19:11:21.621206322Z
 src/main/java/com/logistics/identity/infrastructure/jwt/JwtPropertiesValidator.java 2026-10-03T19:08:10.997172925Z
-src/main/java/com/logistics/identity/infrastructure/jwt/JwtTokenService.java 2026-10-07T12:29:49.905331103Z
+src/main/java/com/logistics/identity/infrastructure/jwt/JwtTokenService.java 2026-10-14T13:29:03.703901321Z
 src/main/java/com/logistics/identity/infrastructure/password/Argon2idPasswordHasher.java 2026-09-23T12:57:07.239923743Z
 src/main/java/com/logistics/identity/infrastructure/persistence/entity/PermissionEntity.java 2026-09-22T10:58:43.392988230Z
 src/main/java/com/logistics/identity/infrastructure/persistence/entity/RefreshTokenEntity.java 2026-09-22T20:39:07.071272606Z

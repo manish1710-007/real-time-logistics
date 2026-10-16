@@ -35,8 +35,7 @@ class SecurityConfigurationTest {
     @SpringBootConfiguration
     @EnableAutoConfiguration
     @Import({SecurityConfiguration.class, TestEndpoints.class})
-    static class TestApplication {
-    }
+    static class TestApplication {}
 
     @RestController
     static class TestEndpoints {
@@ -60,20 +59,17 @@ class SecurityConfigurationTest {
 
     @Test
     void healthEndpointShouldBePublic() throws Exception {
-        mockMvc.perform(get("/actuator/health"))
-                .andExpect(status().isOk());
+        mockMvc.perform(get("/actuator/health")).andExpect(status().isOk());
     }
 
     @Test
     void otherEndpointsShouldRequireAuthentication() throws Exception {
-        mockMvc.perform(get("/api/protected"))
-                .andExpect(status().isUnauthorized());
+        mockMvc.perform(get("/api/protected")).andExpect(status().isUnauthorized());
     }
 
     @Test
     void permissionProtectedEndpointShouldRejectMissingPermission() throws Exception {
-        mockMvc.perform(get("/api/orders")
-                        .with(SecurityMockMvcRequestPostProcessors.user("test-user")))
+        mockMvc.perform(get("/api/orders").with(SecurityMockMvcRequestPostProcessors.user("test-user")))
                 .andExpect(status().isForbidden());
     }
 
@@ -84,8 +80,7 @@ class SecurityConfigurationTest {
                                 new UsernamePasswordAuthenticationToken(
                                         "test-user",
                                         null,
-                                        java.util.List.of(
-                                                new SimpleGrantedAuthority("PERM_order:read"))))))
+                                        java.util.List.of(new SimpleGrantedAuthority("PERM_order:read"))))))
                 .andExpect(status().isOk());
     }
 }

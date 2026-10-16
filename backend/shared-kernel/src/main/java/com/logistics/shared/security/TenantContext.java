@@ -6,9 +6,7 @@ public final class TenantContext {
 
     private static final ThreadLocal<UUID> CURRENT_TENANT = new ThreadLocal<>();
 
-    private TenantContext() {
-
-    }
+    private TenantContext() {}
 
     public static void setTenantId(UUID tenantId) {
         if (tenantId == null) {

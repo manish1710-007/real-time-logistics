@@ -1,11 +1,11 @@
 package com.logistics.shared.security;
 
-import java.util.UUID;
-
-import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.util.UUID;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 class TenantContextTest {
@@ -15,7 +15,7 @@ class TenantContextTest {
         TenantContext.clear();
     }
 
-    @Test 
+    @Test
     void shouldSetAndRetrieveTenantId() {
         UUID tenantId = UUID.randomUUID();
 
@@ -26,18 +26,12 @@ class TenantContextTest {
 
     @Test
     void shouldRejectNullTenantId() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> TenantContext.setTenantId(null)
-        );
+        assertThrows(IllegalArgumentException.class, () -> TenantContext.setTenantId(null));
     }
 
     @Test
     void shouldThrowWhenTenantContextIsMissing() {
-        assertThrows(
-                IllegalArgumentException.class,
-                TenantContext::getTenantId
-        );
+        assertThrows(IllegalArgumentException.class, TenantContext::getTenantId);
     }
 
     @Test

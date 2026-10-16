@@ -1,5 +1,7 @@
 package com.logistics.bootstrap.security;
 
+import com.logistics.identity.infrastructure.jwt.JwtTokenService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -9,10 +11,6 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import com.logistics.identity.infrastructure.jwt.JwtTokenService;
-
-import jakarta.servlet.http.HttpServletResponse;
-
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfiguration {
@@ -20,7 +18,8 @@ public class SecurityConfiguration {
     @Bean
     FilterRegistrationBean<JwtAuthenticationFilter> jwtFilterRegistration(
             JwtAuthenticationFilter jwtAuthenticationFilter) {
-        FilterRegistrationBean<JwtAuthenticationFilter> registration = new FilterRegistrationBean<>(jwtAuthenticationFilter);
+        FilterRegistrationBean<JwtAuthenticationFilter> registration =
+                new FilterRegistrationBean<>(jwtAuthenticationFilter);
         registration.setEnabled(false);
         return registration;
     }
@@ -44,14 +43,8 @@ public class SecurityConfiguration {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
-                .exceptionHandling(exception -> exception
-                    .authenticationEntryPoint((request, response, authException) ->
-                        response.sendError(
-                            HttpServletResponse.SC_UNAUTHORIZED,
-                            "Unauthorized"
-                        )
-                    )
-                )    
+                .exceptionHandling(exception -> exception.authenticationEntryPoint((request, response, authException) ->
+                        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Unauthorized")))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
