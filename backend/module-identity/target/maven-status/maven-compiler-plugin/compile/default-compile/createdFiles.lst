@@ -36,12 +36,14 @@ com/logistics/identity/application/service/RoleLoader.class
 com/logistics/identity/application/service/AuthenticationServiceImpl$1.class
 com/logistics/identity/application/command/RefreshTokenCommand.class
 com/logistics/identity/infrastructure/persistence/repository/RoleRepositoryImpl.class
+com/logistics/identity/domain/entity/PasswordResetToken.class
 com/logistics/identity/infrastructure/persistence/mapper/UserRoleMapper.class
 com/logistics/identity/domain/repository/RefreshTokenRepository.class
 com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity$UserRoleId.class
 com/logistics/identity/infrastructure/persistence/repository/UserRepositoryImpl.class
 com/logistics/identity/application/service/PermissionLoader.class
 com/logistics/identity/domain/repository/RoleRepository.class
+com/logistics/identity/domain/repository/PasswordResetTokenRepository.class
 com/logistics/identity/infrastructure/persistence/repository/UserSessionRepositoryImpl.class
 com/logistics/identity/infrastructure/persistence/mapper/RefreshTokenMapper.class
 com/logistics/identity/application/service/SessionManagementServiceImpl.class
