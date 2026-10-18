@@ -5,6 +5,7 @@
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/application/service/RefreshTokenServiceImplTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/application/service/RoleLoaderImplTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/application/service/SessionManagementServiceImplTest.java
+/home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/domain/entity/PasswordResetTokenTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/domain/entity/RefreshTokenTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/domain/entity/RoleTest.java
 /home/neo1710/Projects/github_uploads/real-time-logistics/backend/module-identity/src/test/java/com/logistics/identity/domain/entity/TenantTest.java
