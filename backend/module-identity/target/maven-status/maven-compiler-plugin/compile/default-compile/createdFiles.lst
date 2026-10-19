@@ -29,9 +29,11 @@ com/logistics/identity/infrastructure/persistence/entity/PermissionEntity.class
 com/logistics/identity/domain/entity/UserSession.class
 com/logistics/identity/domain/repository/UserRoleRepository.class
 com/logistics/identity/application/service/AuthenticationResult.class
+com/logistics/identity/application/service/PasswordResetEmailSender.class
 com/logistics/identity/application/service/AuthenticationServiceImpl.class
 com/logistics/identity/domain/entity/RefreshToken.class
 com/logistics/identity/infrastructure/persistence/repository/PermissionJpaRepository.class
+com/logistics/identity/application/service/PasswordResetService.class
 com/logistics/identity/infrastructure/password/Argon2idPasswordHasher.class
 com/logistics/identity/infrastructure/persistence/mapper/UserSessionMapper.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleJpaRepository.class
@@ -42,6 +44,7 @@ com/logistics/identity/application/dto/RefreshTokenResult.class
 com/logistics/identity/application/service/RefreshTokenService.class
 com/logistics/identity/application/service/AccessTokenIssuerImpl.class
 com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryImpl.class
+com/logistics/identity/application/service/PasswordResetServiceImpl.class
 com/logistics/identity/infrastructure/persistence/repository/RefreshTokenJpaRepository.class
 com/logistics/identity/infrastructure/persistence/entity/UserRoleEntity.class
 com/logistics/identity/infrastructure/persistence/repository/RoleJpaRepository.class
