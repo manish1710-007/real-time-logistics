@@ -12,6 +12,7 @@ com/logistics/identity/infrastructure/persistence/repository/UserRoleRepositoryI
 com/logistics/identity/application/service/PermissionLoaderImplTest.class
 com/logistics/identity/application/service/SessionManagementServiceImplTest.class
 com/logistics/identity/domain/entity/UserSessionTest.class
+com/logistics/identity/application/service/PasswordResetServiceImplTest.class
 com/logistics/identity/domain/entity/PasswordResetTokenTest.class
 com/logistics/identity/domain/entity/RefreshTokenTest.class
 com/logistics/identity/application/command/AuthenticateUserCommandTest.class
