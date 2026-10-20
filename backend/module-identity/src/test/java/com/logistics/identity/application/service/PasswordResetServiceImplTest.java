@@ -1,8 +1,32 @@
 package com.logistics.identity.application.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneOffset;
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.eq;
+import org.mockito.InOrder;
+import org.mockito.Mock;
+import static org.mockito.Mockito.inOrder;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoInteractions;
+import static org.mockito.Mockito.when;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.logistics.identity.domain.entity.PasswordResetToken;
 import com.logistics.identity.domain.entity.RefreshToken;
@@ -15,18 +39,8 @@ import com.logistics.identity.domain.repository.UserSessionRepository;
 import com.logistics.identity.domain.service.PasswordHasher;
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.UserId;
+import com.logistics.identity.domain.valueobject.UserStatus;
 import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneOffset;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
 class PasswordResetServiceImplTest {
@@ -185,4 +199,126 @@ class PasswordResetServiceImplTest {
 
         verifyNoInteractions(resetTokenRepository);
     }
+
+
+    @Test
+    void shouldRequestPasswordResetForActiveUser() {
+        TenantId tenantId = TenantId.generate();
+        User user = createTestUser(
+                tenantId, "user@example.com", UserStatus.ACTIVE);
+
+        when(userRepository.findByTenantIdAndEmail(
+                tenantId, "user@example.com"))
+                .thenReturn(Optional.of(user));
+
+        service.requestPasswordReset(tenantId, "user@example.com");
+
+        ArgumentCaptor<PasswordResetToken> tokenCaptor =
+                ArgumentCaptor.forClass(PasswordResetToken.class);
+        verify(resetTokenRepository).save(tokenCaptor.capture());
+
+        PasswordResetToken savedToken = tokenCaptor.getValue();
+        assertEquals(user.id().value(), savedToken.userId());
+        assertEquals(now, savedToken.createdAt());
+        assertEquals(now.plusSeconds(900), savedToken.expiresAt());
+
+        ArgumentCaptor<String> rawTokenCaptor =
+                ArgumentCaptor.forClass(String.class);
+        ArgumentCaptor<Instant> expiryCaptor =
+                ArgumentCaptor.forClass(Instant.class);
+
+        verify(emailSender).sendPasswordResetEmail(
+                eq("user@example.com"),
+                rawTokenCaptor.capture(),
+                expiryCaptor.capture());
+
+        String rawToken = rawTokenCaptor.getValue();
+        assertNotNull(rawToken);
+        assertFalse(rawToken.isBlank());
+        assertNotEquals(rawToken, savedToken.tokenHash());
+        assertEquals(
+                tokenGenerator.hashToken(rawToken),
+                savedToken.tokenHash());
+        assertEquals(now.plusSeconds(900), expiryCaptor.getValue());
+
+        InOrder order = inOrder(resetTokenRepository, emailSender);
+        order.verify(resetTokenRepository)
+                .revokeActiveByUserId(user.id().value(), now);
+        order.verify(resetTokenRepository).save(any(PasswordResetToken.class));
+        order.verify(emailSender).sendPasswordResetEmail(
+                eq("user@example.com"), eq(rawToken), eq(now.plusSeconds(900)));
+    }
+
+    @Test
+    void shouldNotCreateResetTokenForUnknownEmail() {
+        TenantId tenantId = TenantId.generate();
+
+        when(userRepository.findByTenantIdAndEmail(
+                tenantId, "unknown@example.com"))
+                .thenReturn(Optional.empty());
+
+        service.requestPasswordReset(tenantId, "unknown@example.com");
+
+        verify(userRepository).findByTenantIdAndEmail(
+                tenantId, "unknown@example.com");
+        verifyNoInteractions(resetTokenRepository, emailSender);
+    }
+
+    @Test
+    void shouldNotCreateResetTokenForInactiveUser() {
+        TenantId tenantId = TenantId.generate();
+        User user = createTestUser(
+                tenantId, "inactive@example.com", UserStatus.SUSPENDED);
+
+        when(userRepository.findByTenantIdAndEmail(
+                tenantId, "inactive@example.com"))
+                .thenReturn(Optional.of(user));
+
+        service.requestPasswordReset(tenantId, "inactive@example.com");
+
+        verify(userRepository).findByTenantIdAndEmail(
+                tenantId, "inactive@example.com");
+        verifyNoInteractions(resetTokenRepository, emailSender);
+    }
+
+    @Test
+    void shouldNormalizeEmailBeforeLookup() {
+        TenantId tenantId = TenantId.generate();
+        User user = createTestUser(
+                tenantId, "user@example.com", UserStatus.ACTIVE);
+
+        when(userRepository.findByTenantIdAndEmail(
+                tenantId, "user@example.com"))
+                .thenReturn(Optional.of(user));
+
+        service.requestPasswordReset(
+                tenantId, "  USER@EXAMPLE.COM  ");
+
+        verify(userRepository).findByTenantIdAndEmail(
+                tenantId, "user@example.com");
+        verify(resetTokenRepository)
+                .revokeActiveByUserId(user.id().value(), now);
+        verify(resetTokenRepository).save(any(PasswordResetToken.class));
+        verify(emailSender).sendPasswordResetEmail(
+                eq("user@example.com"), any(String.class), eq(now.plusSeconds(900)));
+    }
+
+    private User createTestUser(
+            TenantId tenantId, String email, UserStatus status) {
+        return User.reconstitute(
+                new UserId(UUID.randomUUID()),
+                tenantId,
+                email,
+                "old-password-hash",
+                "Test",
+                "User",
+                null,
+                status,
+                true,
+                null,
+                now.minusSeconds(3600),
+                now.minusSeconds(60),
+                0);
+    }
+
 }

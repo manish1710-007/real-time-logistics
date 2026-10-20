@@ -1,23 +1,27 @@
 package com.logistics.identity.application.service;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
+
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.logistics.identity.domain.entity.PasswordResetToken;
+import com.logistics.identity.domain.entity.RefreshToken;
+import com.logistics.identity.domain.entity.User;
+import com.logistics.identity.domain.entity.UserSession;
 import com.logistics.identity.domain.repository.PasswordResetTokenRepository;
 import com.logistics.identity.domain.repository.RefreshTokenRepository;
 import com.logistics.identity.domain.repository.UserRepository;
 import com.logistics.identity.domain.repository.UserSessionRepository;
 import com.logistics.identity.domain.service.PasswordHasher;
-import com.logistics.identity.domain.valueobject.TenantId;
-import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
-import com.logistics.identity.domain.entity.PasswordResetToken;
-import com.logistics.identity.domain.entity.RefreshToken;
-import com.logistics.identity.domain.entity.User;
-import com.logistics.identity.domain.entity.UserSession;
 import com.logistics.identity.domain.service.PasswordPolicy;
+import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.UserId;
-import java.time.Instant;
-import java.util.List;
-import java.time.Clock;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
+import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
 
 @Service
 public class PasswordResetServiceImpl implements PasswordResetService {
@@ -53,7 +57,41 @@ public class PasswordResetServiceImpl implements PasswordResetService {
     @Override
     @Transactional
     public void requestPasswordReset(TenantId tenantId, String email) {
-        throw new UnsupportedOperationException("Not implemented yet");
+        if (tenantId == null) {
+            throw new IllegalArgumentException("Tenant ID is required");
+        }
+
+        if (email == null || email.isBlank()) {
+            throw new IllegalArgumentException("Email is required");
+        }
+
+        String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
+
+        userRepository.findByTenantIdAndEmail(tenantId, normalizedEmail)
+                .filter(user -> user.status()
+                        == com.logistics.identity.domain.valueobject.UserStatus.ACTIVE)
+                .ifPresent(user -> {
+                    Instant now = clock.instant();
+                    Instant expiresAt = now.plusSeconds(15 * 60);
+
+                    String rawToken = tokenGenerator.generateToken();
+                    String tokenHash = tokenGenerator.hashToken(rawToken);
+
+                    passwordResetTokenRepository.revokeActiveByUserId(
+                            user.id().value(), now);
+
+                    PasswordResetToken resetToken = PasswordResetToken.create(
+                            UUID.randomUUID(),
+                            user.id().value(),
+                            tokenHash,
+                            now,
+                            expiresAt);
+
+                    passwordResetTokenRepository.save(resetToken);
+
+                    emailSender.sendPasswordResetEmail(
+                            user.email(), rawToken, expiresAt);
+                });
     }
 
     @Override
