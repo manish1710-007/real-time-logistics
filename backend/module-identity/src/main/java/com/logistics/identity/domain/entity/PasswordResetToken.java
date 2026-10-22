@@ -1,4 +1,3 @@
-
 package com.logistics.identity.domain.entity;
 
 import java.time.Instant;
@@ -39,8 +38,7 @@ public final class PasswordResetToken {
 
     public static PasswordResetToken create(
             UUID id, UUID userId, String tokenHash, Instant createdAt, Instant expiresAt) {
-        return new PasswordResetToken(
-                id, userId, tokenHash, createdAt, expiresAt, null, null);
+        return new PasswordResetToken(id, userId, tokenHash, createdAt, expiresAt, null, null);
     }
 
     public static PasswordResetToken reconstitute(
@@ -51,8 +49,7 @@ public final class PasswordResetToken {
             Instant expiresAt,
             Instant consumedAt,
             Instant revokedAt) {
-        return new PasswordResetToken(
-                id, userId, tokenHash, createdAt, expiresAt, consumedAt, revokedAt);
+        return new PasswordResetToken(id, userId, tokenHash, createdAt, expiresAt, consumedAt, revokedAt);
     }
 
     public boolean isUsableAt(Instant now) {
@@ -75,13 +72,33 @@ public final class PasswordResetToken {
         }
     }
 
-    public UUID id() { return id; }
-    public UUID userId() { return userId; }
-    public String tokenHash() { return tokenHash; }
-    public Instant createdAt() { return createdAt; }
-    public Instant expiresAt() { return expiresAt; }
-    public Instant consumedAt() { return consumedAt; }
-    public Instant revokedAt() { return revokedAt; }
+    public UUID id() {
+        return id;
+    }
+
+    public UUID userId() {
+        return userId;
+    }
+
+    public String tokenHash() {
+        return tokenHash;
+    }
+
+    public Instant createdAt() {
+        return createdAt;
+    }
+
+    public Instant expiresAt() {
+        return expiresAt;
+    }
+
+    public Instant consumedAt() {
+        return consumedAt;
+    }
+
+    public Instant revokedAt() {
+        return revokedAt;
+    }
 
     private static String requireText(String value, String field) {
         if (value == null || value.isBlank()) {

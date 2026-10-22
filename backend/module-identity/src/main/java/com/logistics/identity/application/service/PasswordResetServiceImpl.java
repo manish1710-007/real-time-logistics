@@ -1,14 +1,5 @@
 package com.logistics.identity.application.service;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.util.List;
-import java.util.Locale;
-import java.util.UUID;
-
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.logistics.identity.domain.entity.PasswordResetToken;
 import com.logistics.identity.domain.entity.RefreshToken;
 import com.logistics.identity.domain.entity.User;
@@ -22,6 +13,13 @@ import com.logistics.identity.domain.service.PasswordPolicy;
 import com.logistics.identity.domain.valueobject.TenantId;
 import com.logistics.identity.domain.valueobject.UserId;
 import com.logistics.identity.infrastructure.security.RefreshTokenGenerator;
+import java.time.Clock;
+import java.time.Instant;
+import java.util.List;
+import java.util.Locale;
+import java.util.UUID;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class PasswordResetServiceImpl implements PasswordResetService {
@@ -67,9 +65,9 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
         String normalizedEmail = email.trim().toLowerCase(Locale.ROOT);
 
-        userRepository.findByTenantIdAndEmail(tenantId, normalizedEmail)
-                .filter(user -> user.status()
-                        == com.logistics.identity.domain.valueobject.UserStatus.ACTIVE)
+        userRepository
+                .findByTenantIdAndEmail(tenantId, normalizedEmail)
+                .filter(user -> user.status() == com.logistics.identity.domain.valueobject.UserStatus.ACTIVE)
                 .ifPresent(user -> {
                     Instant now = clock.instant();
                     Instant expiresAt = now.plusSeconds(15 * 60);
@@ -77,20 +75,14 @@ public class PasswordResetServiceImpl implements PasswordResetService {
                     String rawToken = tokenGenerator.generateToken();
                     String tokenHash = tokenGenerator.hashToken(rawToken);
 
-                    passwordResetTokenRepository.revokeActiveByUserId(
-                            user.id().value(), now);
+                    passwordResetTokenRepository.revokeActiveByUserId(user.id().value(), now);
 
                     PasswordResetToken resetToken = PasswordResetToken.create(
-                            UUID.randomUUID(),
-                            user.id().value(),
-                            tokenHash,
-                            now,
-                            expiresAt);
+                            UUID.randomUUID(), user.id().value(), tokenHash, now, expiresAt);
 
                     passwordResetTokenRepository.save(resetToken);
 
-                    emailSender.sendPasswordResetEmail(
-                            user.email(), rawToken, expiresAt);
+                    emailSender.sendPasswordResetEmail(user.email(), rawToken, expiresAt);
                 });
     }
 
@@ -108,19 +100,17 @@ public class PasswordResetServiceImpl implements PasswordResetService {
 
         PasswordResetToken resetToken = passwordResetTokenRepository
                 .findByTokenHashForUpdate(tokenHash)
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Invalid or expired password reset token"));
+                .orElseThrow(() -> new IllegalArgumentException("Invalid or expired password reset token"));
 
         if (!resetToken.isUsableAt(now)) {
-            throw new IllegalArgumentException(
-                    "Invalid or expired password reset token");
+            throw new IllegalArgumentException("Invalid or expired password reset token");
         }
 
         UserId userId = new UserId(resetToken.userId());
 
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Invalid or expired password reset token"));
+        User user = userRepository
+                .findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid or expired password reset token"));
 
         user.updatePasswordHash(passwordHasher.hash(newPassword));
         userRepository.save(user);
@@ -136,8 +126,7 @@ public class PasswordResetServiceImpl implements PasswordResetService {
             session.revoke(now);
             userSessionRepository.save(session);
 
-            List<RefreshToken> refreshTokens =
-                    refreshTokenRepository.findBySessionId(session.id());
+            List<RefreshToken> refreshTokens = refreshTokenRepository.findBySessionId(session.id());
 
             for (RefreshToken refreshToken : refreshTokens) {
                 refreshToken.revoke(now);

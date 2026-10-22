@@ -4,9 +4,5 @@ import java.time.Instant;
 
 public interface PasswordResetEmailSender {
 
-    void sendPasswordResetEmail(
-            String recipientEmail,
-            String rawToken,
-            Instant expiresAt);
-    
+    void sendPasswordResetEmail(String recipientEmail, String rawToken, Instant expiresAt);
 }

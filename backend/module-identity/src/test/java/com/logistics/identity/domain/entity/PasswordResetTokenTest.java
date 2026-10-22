@@ -1,4 +1,3 @@
-
 package com.logistics.identity.domain.entity;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,8 +24,7 @@ class PasswordResetTokenTest {
 
     @Test
     void shouldCreateUsableToken() {
-        PasswordResetToken token = PasswordResetToken.create(
-                id, userId, "a".repeat(64), createdAt, expiresAt);
+        PasswordResetToken token = PasswordResetToken.create(id, userId, "a".repeat(64), createdAt, expiresAt);
 
         assertTrue(token.isUsableAt(createdAt.plusSeconds(1)));
         assertEquals(userId, token.userId());
@@ -34,29 +32,24 @@ class PasswordResetTokenTest {
 
     @Test
     void shouldRejectTokenAtExpiryTime() {
-        PasswordResetToken token = PasswordResetToken.create(
-                id, userId, "a".repeat(64), createdAt, expiresAt);
+        PasswordResetToken token = PasswordResetToken.create(id, userId, "a".repeat(64), createdAt, expiresAt);
 
         assertFalse(token.isUsableAt(expiresAt));
     }
 
     @Test
     void shouldRejectConsumedToken() {
-        PasswordResetToken token = PasswordResetToken.create(
-                id, userId, "a".repeat(64), createdAt, expiresAt);
+        PasswordResetToken token = PasswordResetToken.create(id, userId, "a".repeat(64), createdAt, expiresAt);
 
         token.consume(createdAt.plusSeconds(10));
 
         assertFalse(token.isUsableAt(createdAt.plusSeconds(11)));
-        assertThrows(
-                IllegalStateException.class,
-                () -> token.consume(createdAt.plusSeconds(12)));
+        assertThrows(IllegalStateException.class, () -> token.consume(createdAt.plusSeconds(12)));
     }
 
     @Test
     void shouldRejectRevokedToken() {
-        PasswordResetToken token = PasswordResetToken.create(
-                id, userId, "a".repeat(64), createdAt, expiresAt);
+        PasswordResetToken token = PasswordResetToken.create(id, userId, "a".repeat(64), createdAt, expiresAt);
 
         token.revoke(createdAt.plusSeconds(10));
 
@@ -67,15 +60,12 @@ class PasswordResetTokenTest {
     void shouldRejectExpiryBeforeCreation() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> PasswordResetToken.create(
-                        id, userId, "a".repeat(64), expiresAt, createdAt));
+                () -> PasswordResetToken.create(id, userId, "a".repeat(64), expiresAt, createdAt));
     }
 
     @Test
     void shouldRejectBlankTokenHash() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> PasswordResetToken.create(
-                        id, userId, " ", createdAt, expiresAt));
+                IllegalArgumentException.class, () -> PasswordResetToken.create(id, userId, " ", createdAt, expiresAt));
     }
 }

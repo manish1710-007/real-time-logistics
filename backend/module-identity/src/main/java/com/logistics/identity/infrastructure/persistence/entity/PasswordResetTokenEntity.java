@@ -1,22 +1,17 @@
 package com.logistics.identity.infrastructure.persistence.entity;
 
-import java.time.Instant;
-import java.util.UUID;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(
         name = "password_reset_tokens",
-        uniqueConstraints = {
-            @UniqueConstraint(
-                    name = "uq_password_reset_tokens_hash",
-                    columnNames = "token_hash")
-        })
+        uniqueConstraints = {@UniqueConstraint(name = "uq_password_reset_tokens_hash", columnNames = "token_hash")})
 public class PasswordResetTokenEntity {
 
     @Id
