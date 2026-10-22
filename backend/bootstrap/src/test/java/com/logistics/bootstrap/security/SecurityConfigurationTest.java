@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootTest(
         classes = SecurityConfigurationTest.TestApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
+        properties = {"management.health.mail.enabled=false"})
 @AutoConfigureMockMvc
 class SecurityConfigurationTest {
 

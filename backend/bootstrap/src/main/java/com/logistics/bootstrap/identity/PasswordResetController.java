@@ -1,15 +1,19 @@
+
 package com.logistics.bootstrap.identity;
 
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.logistics.identity.application.service.PasswordResetService;
-import com.logistics.identity.domain.entity.Tenant;
 import com.logistics.identity.domain.repository.TenantRepository;
 import com.logistics.identity.domain.valueobject.TenantStatus;
-import com.logistics.identity.domain.TenantId;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth/password-reset")
@@ -28,31 +32,33 @@ public class PasswordResetController {
     @PostMapping("/request")
     public ResponseEntity<MessageResponse> requestReset(
             @Valid @RequestBody ResetRequest request) {
-        tenantRepository.findBySlug(request.tenantSlug().trim()).filter(tenant -> tenant.status() == TenantStatus.ACTIVE).ifPresent(tenant -> passwordResetServie.requestPasswordReset(tenant.id(), request.email()));
 
-        return ReponseEntity.ok(
-                new MessageResponse(
-                        "If the account it eligible, password-reset intructions will be sent."));
-                
+        tenantRepository.findBySlug(request.tenantSlug().trim())
+                .filter(tenant -> tenant.status() == TenantStatus.ACTIVE)
+                .ifPresent(tenant -> passwordResetService.requestPasswordReset(
+                        tenant.id(), request.email()));
+
+        return ResponseEntity.ok(new MessageResponse(
+                "If the account is eligible, password-reset instructions will be sent."));
     }
-        
+
     @PostMapping("/confirm")
-    public ReponseEntity<MessageReponse> confirmReset(
+    public ResponseEntity<MessageResponse> confirmReset(
             @Valid @RequestBody ResetConfirmation request) {
+
         passwordResetService.resetPassword(request.token(), request.newPassword());
 
-        return ReponseEntity.ok(
-                new MessageReponse("Password has been reset successfully."));
+        return ResponseEntity.ok(
+                new MessageResponse("Password has been reset successfully."));
     }
 
     public record ResetRequest(
             @NotBlank @Size(max = 100) String tenantSlug,
-            @NotBlank @Sixe(max = 254) String email) {}
-    
-    public record ResetCOnfirmation(
+            @NotBlank @Size(max = 254) String email) {}
+
+    public record ResetConfirmation(
             @NotBlank String token,
             @NotBlank @Size(min = 8, max = 128) String newPassword) {}
-    
+
     public record MessageResponse(String message) {}
-}    
-    
+}

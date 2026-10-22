@@ -60,4 +60,3 @@ public class SmtpPasswordResetEmailSender implements PasswordResetEmailSender {
         return value;
     }
 }
-
