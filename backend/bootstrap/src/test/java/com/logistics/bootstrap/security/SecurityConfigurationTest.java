@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.boot.autoconfigure.flyway.FlywayAutoConfiguration;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -22,7 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootTest(
         classes = SecurityConfigurationTest.TestApplication.class,
-        webEnvironment = SpringBootTest.WebEnvironment.MOCK)
+        webEnvironment = SpringBootTest.WebEnvironment.MOCK,
+        properties = {"management.health.mail.enabled=false"})
 @AutoConfigureMockMvc
 class SecurityConfigurationTest {
 
@@ -33,7 +37,12 @@ class SecurityConfigurationTest {
     private JwtTokenService jwtTokenService;
 
     @SpringBootConfiguration
-    @EnableAutoConfiguration
+    @EnableAutoConfiguration(
+            exclude = {
+                DataSourceAutoConfiguration.class,
+                HibernateJpaAutoConfiguration.class,
+                FlywayAutoConfiguration.class
+            })
     @Import({SecurityConfiguration.class, TestEndpoints.class})
     static class TestApplication {}
 

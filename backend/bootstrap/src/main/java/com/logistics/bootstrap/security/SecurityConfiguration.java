@@ -39,7 +39,11 @@ public class SecurityConfiguration {
                 .logout(logout -> logout.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/actuator/health", "/actuator/health/**", "/api/v1/auth/password-reset/request", "/api/v1/auth/password-reset/confirm")
+                        .requestMatchers(
+                                "/actuator/health",
+                                "/actuator/health/**",
+                                "/api/v1/auth/password-reset/request",
+                                "/api/v1/auth/password-reset/confirm")
                         .permitAll()
                         .anyRequest()
                         .authenticated())

@@ -1,4 +1,3 @@
-
 package com.logistics.identity.infrastructure.email;
 
 import com.logistics.identity.application.service.PasswordResetEmailSender;
@@ -28,23 +27,20 @@ public class SmtpPasswordResetEmailSender implements PasswordResetEmailSender {
     }
 
     @Override
-    public void sendPasswordResetEmail(
-            String recipientEmail, String rawToken, Instant expiresAt) {
+    public void sendPasswordResetEmail(String recipientEmail, String rawToken, Instant expiresAt) {
 
         requireText(recipientEmail, "Recipient email");
         requireText(rawToken, "Reset token");
         Objects.requireNonNull(expiresAt, "Expiry is required");
 
         String separator = resetBaseUrl.contains("?") ? "&" : "?";
-        String resetUrl = resetBaseUrl + separator
-                + "token=" + URLEncoder.encode(rawToken, StandardCharsets.UTF_8);
+        String resetUrl = resetBaseUrl + separator + "token=" + URLEncoder.encode(rawToken, StandardCharsets.UTF_8);
 
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(fromAddress);
         message.setTo(recipientEmail);
         message.setSubject("Reset your Real-Time Logistics password");
-        message.setText(
-                "We received a request to reset your password.\n\n"
+        message.setText("We received a request to reset your password.\n\n"
                 + "Use this link to choose a new password:\n"
                 + resetUrl + "\n\n"
                 + "This link expires at " + expiresAt + " (UTC).\n"
@@ -60,4 +56,3 @@ public class SmtpPasswordResetEmailSender implements PasswordResetEmailSender {
         return value;
     }
 }
-

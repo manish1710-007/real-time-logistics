@@ -1,11 +1,10 @@
 package com.logistics.identity.domain.repository;
 
+import com.logistics.identity.domain.entity.PasswordResetToken;
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-
-import com.logistics.identity.domain.entity.PasswordResetToken;
 
 public interface PasswordResetTokenRepository {
 

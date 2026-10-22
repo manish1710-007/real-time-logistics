@@ -1,4 +1,3 @@
-
 package com.logistics.identity.application.service;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,11 +34,9 @@ class SessionManagementServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        clock = Clock.fixed(
-                Instant.parse("2026-10-09T12:00:00Z"), ZoneOffset.UTC);
+        clock = Clock.fixed(Instant.parse("2026-10-09T12:00:00Z"), ZoneOffset.UTC);
 
-        service = new SessionManagementServiceImpl(
-                sessionRepository, refreshTokenRepository, clock);
+        service = new SessionManagementServiceImpl(sessionRepository, refreshTokenRepository, clock);
     }
 
     @Test
@@ -49,18 +46,13 @@ class SessionManagementServiceImplTest {
         UserId userId = UserId.generate();
 
         UserSession session = UserSession.create(
-                sessionId, userId,
-                now.minusSeconds(60), now.plusSeconds(3600),
-                "127.0.0.1", "JUnit");
+                sessionId, userId, now.minusSeconds(60), now.plusSeconds(3600), "127.0.0.1", "JUnit");
 
         RefreshToken token = RefreshToken.create(
-                UUID.randomUUID(), sessionId, "token-hash",
-                now.minusSeconds(30), now.plusSeconds(1800));
+                UUID.randomUUID(), sessionId, "token-hash", now.minusSeconds(30), now.plusSeconds(1800));
 
-        when(sessionRepository.findByIdForUpdate(sessionId))
-                .thenReturn(Optional.of(session));
-        when(refreshTokenRepository.findBySessionId(sessionId))
-                .thenReturn(List.of(token));
+        when(sessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.of(session));
+        when(refreshTokenRepository.findBySessionId(sessionId)).thenReturn(List.of(token));
 
         service.revokeSession(sessionId, userId);
 
@@ -77,17 +69,16 @@ class SessionManagementServiceImplTest {
     void shouldRejectRevokingAnotherUsersSession() {
         UUID sessionId = UUID.randomUUID();
         UserSession session = UserSession.create(
-                sessionId, UserId.generate(),
+                sessionId,
+                UserId.generate(),
                 clock.instant().minusSeconds(60),
                 clock.instant().plusSeconds(3600),
-                "127.0.0.1", "JUnit");
+                "127.0.0.1",
+                "JUnit");
 
-        when(sessionRepository.findByIdForUpdate(sessionId))
-                .thenReturn(Optional.of(session));
+        when(sessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.of(session));
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> service.revokeSession(sessionId, UserId.generate()));
+        assertThrows(IllegalArgumentException.class, () -> service.revokeSession(sessionId, UserId.generate()));
 
         verify(sessionRepository, never()).save(any());
         verify(refreshTokenRepository, never()).findBySessionId(any());
@@ -97,12 +88,9 @@ class SessionManagementServiceImplTest {
     void shouldRejectUnknownSession() {
         UUID sessionId = UUID.randomUUID();
 
-        when(sessionRepository.findByIdForUpdate(sessionId))
-                .thenReturn(Optional.empty());
+        when(sessionRepository.findByIdForUpdate(sessionId)).thenReturn(Optional.empty());
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> service.revokeSession(sessionId, UserId.generate()));
+        assertThrows(IllegalArgumentException.class, () -> service.revokeSession(sessionId, UserId.generate()));
     }
 
     @Test
@@ -111,29 +99,20 @@ class SessionManagementServiceImplTest {
         UserId userId = UserId.generate();
 
         UserSession first = UserSession.create(
-                UUID.randomUUID(), userId,
-                now.minusSeconds(120), now.plusSeconds(3600),
-                "127.0.0.1", "JUnit");
+                UUID.randomUUID(), userId, now.minusSeconds(120), now.plusSeconds(3600), "127.0.0.1", "JUnit");
 
         UserSession second = UserSession.create(
-                UUID.randomUUID(), userId,
-                now.minusSeconds(60), now.plusSeconds(7200),
-                "127.0.0.2", "JUnit");
+                UUID.randomUUID(), userId, now.minusSeconds(60), now.plusSeconds(7200), "127.0.0.2", "JUnit");
 
         RefreshToken firstToken = RefreshToken.create(
-                UUID.randomUUID(), first.id(), "hash-1",
-                now.minusSeconds(30), now.plusSeconds(1800));
+                UUID.randomUUID(), first.id(), "hash-1", now.minusSeconds(30), now.plusSeconds(1800));
 
         RefreshToken secondToken = RefreshToken.create(
-                UUID.randomUUID(), second.id(), "hash-2",
-                now.minusSeconds(20), now.plusSeconds(3600));
+                UUID.randomUUID(), second.id(), "hash-2", now.minusSeconds(20), now.plusSeconds(3600));
 
-        when(sessionRepository.findActiveByUserId(userId, now))
-                .thenReturn(List.of(first, second));
-        when(refreshTokenRepository.findBySessionId(first.id()))
-                .thenReturn(List.of(firstToken));
-        when(refreshTokenRepository.findBySessionId(second.id()))
-                .thenReturn(List.of(secondToken));
+        when(sessionRepository.findActiveByUserId(userId, now)).thenReturn(List.of(first, second));
+        when(refreshTokenRepository.findBySessionId(first.id())).thenReturn(List.of(firstToken));
+        when(refreshTokenRepository.findBySessionId(second.id())).thenReturn(List.of(secondToken));
 
         service.revokeAllSessions(userId);
 
@@ -154,32 +133,21 @@ class SessionManagementServiceImplTest {
         UserId userId = UserId.generate();
 
         UserSession session = UserSession.create(
-                UUID.randomUUID(), userId,
-                now.minusSeconds(60), now.plusSeconds(3600),
-                "127.0.0.1", "JUnit");
+                UUID.randomUUID(), userId, now.minusSeconds(60), now.plusSeconds(3600), "127.0.0.1", "JUnit");
 
-        when(sessionRepository.findActiveByUserId(userId, now))
-                .thenReturn(List.of(session));
+        when(sessionRepository.findActiveByUserId(userId, now)).thenReturn(List.of(session));
 
         assertEquals(List.of(session), service.getActiveSessions(userId));
     }
 
     @Test
     void shouldRejectNullArguments() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> service.revokeSession(null, UserId.generate()));
+        assertThrows(IllegalArgumentException.class, () -> service.revokeSession(null, UserId.generate()));
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> service.revokeSession(UUID.randomUUID(), null));
+        assertThrows(IllegalArgumentException.class, () -> service.revokeSession(UUID.randomUUID(), null));
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> service.revokeAllSessions(null));
+        assertThrows(IllegalArgumentException.class, () -> service.revokeAllSessions(null));
 
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> service.getActiveSessions(null));
+        assertThrows(IllegalArgumentException.class, () -> service.getActiveSessions(null));
     }
 }

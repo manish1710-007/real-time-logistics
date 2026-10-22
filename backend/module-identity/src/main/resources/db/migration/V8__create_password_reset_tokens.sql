@@ -7,10 +7,10 @@ CREATE TABLE password_reset_tokens (
     consumed_at TIMESTAMP WITH TIME ZONE,
     revoked_at TIMESTAMP WITH TIME ZONE,
 
-    CONTRAINT uq_password_reset_tokens_hash UNIQUE (token_hash),
-    CONTRAINT chk_password_reset_tokens_expiry
+    CONSTRAINT uq_password_reset_tokens_hash UNIQUE (token_hash),
+    CONSTRAINT chk_password_reset_tokens_expiry
         CHECK (expires_at > created_at),
-    CONTRAINT fk_password_reset_tokens_user
+    CONSTRAINT fk_password_reset_tokens_user
         FOREIGN KEY (user_id)
         REFERENCES users(id)
         ON DELETE CASCADE
